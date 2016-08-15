@@ -1,3 +1,5 @@
+from connection import connect
+
 
 def getBasicInfo(soup, info):
     print("Getting Basic Info")
@@ -37,8 +39,7 @@ def getReviews(soup, info):
     info['traveller_type'] = traveller_type_list
     ext_tag = soup.find(id = 'trustyou_main_div')
     newUrl = ext_tag.contents[0].get('src')
-    newReq = requests.get(newUrl)
-    newSoup = BeautifulSoup(newReq.text)
+    newSoup = connect(newUrl)
     getRatingNumbers(newSoup, info)
 
 
@@ -57,6 +58,16 @@ def getRatingNumbers(soup, info):
         ratings[ratingValue_list[i]] = ratingCount_list[i]
 
     info['number_reviews'] = ratings
+
+
+def getAmenitiesInfo(soup, info):
+    hotelAmenities_tag = soup.find(id = 'detail-amenities-list1')
+    hotelAmenities = hotelAmenities_tag.text
+    info['hotel_amenities'] = hotelAmenities
+    available_activities_tag = soup.find(id = 'detail-amenities-list2')
+    available_activities = available_activities_tag.text
+    info['available_activities'] = available_activities
+
 
 
 
