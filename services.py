@@ -35,5 +35,29 @@ def getReviews(soup, info):
     for i in traveller_type_tag:
         traveller_type_list.append(i.text)
     info['traveller_type'] = traveller_type_list
+    ext_tag = soup.find(id = 'trustyou_main_div')
+    newUrl = ext_tag.contents[0].get('src')
+    newReq = requests.get(newUrl)
+    newSoup = BeautifulSoup(newReq.text)
+    getRatingNumbers(newSoup, info)
+
+
+def getRatingNumbers(soup, info):
+    ratingValue_tags = soup.find_all(class_ = 'rating-value')
+    ratingCount_tags = soup.find_all(class_ = 'rating-count')
+    ratings = {}
+    ratingValue_list = []
+    ratingCount_list = []
+
+    for i in range(len(ratingValue_tags)):
+        ratingValue_list.append(ratingValue_tags[i].text)
+        ratingCount_list.append(ratingCount_tags[i].text)
+
+    for i in range(len(ratingValue_list)):
+        ratings[ratingValue_list[i]] = ratingCount_list[i]
+
+    info['number_reviews'] = ratings
+
+
 
 
