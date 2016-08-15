@@ -15,3 +15,10 @@ def getOverview(soup, info):
     description_tag = soup.find(class_ = 'hotel_content',
             itemprop = 'description')
     info['description'] = description_tag.text
+
+def getLocation(soup, info):
+    print("Getting Location")
+    address_tag = soup.find(itemprop = 'address')
+    info['address'] = address_tag.text
+    location_summary_tag = soup.find(id = 'tab2')
+    info['location_summary'] = location_summary_tag.text
