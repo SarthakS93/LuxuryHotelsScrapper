@@ -1,22 +1,12 @@
 import os
 import sys
 from urllib.parse import urljoin
-from services import getBasicInfo, getOverview, getLocation, getReviews, getAmenitiesInfo
+from services import getBasicInfo, getOverview, getLocation, getReviews, getAmenitiesInfo, getAwardsInfo
 from connection import connect
 
 url = 'http://www.fivestaralliance.com/luxury-hotels/bangkok/banyan-tree-bangkok'
 
 info = {}
-
-'''
-def connect(url):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    else:
-        soup = BeautifulSoup(r.text)
-        return soup
-'''
 
 def scrape(soup):
     getBasicInfo(soup, info)
@@ -24,7 +14,7 @@ def scrape(soup):
     getLocation(soup, info)
     getReviews(soup, info)
     getAmenitiesInfo(soup, info)
-    #getAwards(soup)
+    getAwardsInfo(soup, info)
     showOutput()
 
 

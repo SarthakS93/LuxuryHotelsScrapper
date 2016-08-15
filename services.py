@@ -51,7 +51,7 @@ def getRatingNumbers(soup, info):
     ratingCount_list = []
 
     for i in range(len(ratingValue_tags)):
-        ratingValue_list.append(ratingValue_tags[i].text)
+        ratingValue_list.append(ratingValue_tags[i].text[1 : ])
         ratingCount_list.append(ratingCount_tags[i].text)
 
     for i in range(len(ratingValue_list)):
@@ -69,6 +69,17 @@ def getAmenitiesInfo(soup, info):
     info['available_activities'] = available_activities
 
 
+def getAwardsInfo(soup, info):
+    award_tag = soup.find(id = 'tab5')
+    if award_tag == None:
+        return
+    else:
+        list = []
+        a_tags = award_tag.find_all('a')
+        for i in range(1, len(a_tags)):
+            list.append(a_tags[i].text)
+
+        info['awards'] = list
 
 
 
