@@ -27,6 +27,7 @@ def getLocation(soup, info):
 
 
 def getReviews(soup, info):
+    print("Getting Reviews")
     highlights_tag = soup.find_all(id = 'detail-highlight')
     highlightsList = []
     for i in highlights_tag:
@@ -44,6 +45,7 @@ def getReviews(soup, info):
 
 
 def getRatingNumbers(soup, info):
+    print("Getting Rating Numbers")
     ratingValue_tags = soup.find_all(class_ = 'rating-value')
     ratingCount_tags = soup.find_all(class_ = 'rating-count')
     ratings = {}
@@ -61,6 +63,7 @@ def getRatingNumbers(soup, info):
 
 
 def getAmenitiesInfo(soup, info):
+    print("Getting amenities info")
     hotelAmenities_tag = soup.find(id = 'detail-amenities-list1')
     hotelAmenities = hotelAmenities_tag.text
     info['hotel_amenities'] = hotelAmenities
@@ -70,6 +73,7 @@ def getAmenitiesInfo(soup, info):
 
 
 def getAwardsInfo(soup, info):
+    print("Getting Awards info")
     award_tag = soup.find(id = 'tab5')
     if award_tag == None:
         return
