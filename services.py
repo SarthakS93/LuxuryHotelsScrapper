@@ -22,3 +22,12 @@ def getLocation(soup, info):
     info['address'] = address_tag.text
     location_summary_tag = soup.find(id = 'tab2')
     info['location_summary'] = location_summary_tag.text
+
+
+def getReviews(soup, info):
+    highlights_tag = soup.find_all(id = 'detail-highlight')
+    list = []
+    for i in highlights_tag:
+        list.append(i.text)
+    info['highlights'] = list
+
