@@ -26,8 +26,14 @@ def getLocation(soup, info):
 
 def getReviews(soup, info):
     highlights_tag = soup.find_all(id = 'detail-highlight')
-    list = []
+    highlightsList = []
     for i in highlights_tag:
-        list.append(i.text)
-    info['highlights'] = list
+        highlightsList.append(i.text)
+    info['highlights'] = highlightsList
+    traveller_type_tag = soup.find_all(class_ = 'traveler-type')
+    traveller_type_list = []
+    for i in traveller_type_tag:
+        traveller_type_list.append(i.text)
+    info['traveller_type'] = traveller_type_list
+
 
