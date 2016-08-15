@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import os
 import sys
 from urllib.parse import urljoin
-from services import getBasicInfo
+from services import getBasicInfo, getOverview
 
 url = 'http://www.fivestaralliance.com/luxury-hotels/bangkok/banyan-tree-bangkok'
 
@@ -20,7 +20,7 @@ def connect(url):
 
 def scrape(soup):
     getBasicInfo(soup, info)
-    #getOverView(soup)
+    getOverview(soup, info)
     #getLocation(soup)
     #getReviews(soup)
     #getAmenities(soup)
