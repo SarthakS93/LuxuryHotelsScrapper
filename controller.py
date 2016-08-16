@@ -1,6 +1,12 @@
+'''
+Controller for the project
+This calls the particular service functions
+'''
+
 from crawler import crawl
 from urllib.parse import urljoin
 
+# gets all the links of luxury hotels on a particular page
 def getAllLinks(soup, baseUrl):
     a_tags = soup.find_all('a')
     list = []
@@ -14,7 +20,7 @@ def getAllLinks(soup, baseUrl):
     return list
 
 
-
+# calls crawl function to scrape data for all links
 def start(soup, url):
     list = getAllLinks(soup, url)
     for i in list:

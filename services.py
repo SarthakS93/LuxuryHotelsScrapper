@@ -1,6 +1,11 @@
+'''
+Service layer, has functions to extract particular data
+'''
+
 from connection import connect
 
 
+# get basic info such as title and location of hotel
 def getBasicInfo(soup, info):
     print("Getting Basic Info")
     name_tag = soup.find(id = 'heading_title_hotel')
@@ -8,6 +13,8 @@ def getBasicInfo(soup, info):
     location_tag = soup.find(id = 'title_location')
     info['location'] = location_tag.text
 
+
+# get rating and description of hotel
 def getOverview(soup, info):
     print("Getting Overview")
     rating_tag = soup.find(class_ = 'score')
@@ -20,6 +27,8 @@ def getOverview(soup, info):
             itemprop = 'description')
     info['description'] = description_tag.text
 
+
+# get absolute location details of hotel
 def getLocation(soup, info):
     print("Getting Location")
     address_tag = soup.find(itemprop = 'address')
@@ -28,6 +37,7 @@ def getLocation(soup, info):
     info['location_summary'] = location_summary_tag.text
 
 
+# get reviews highlights of hotel
 def getReviews(soup, info):
     print("Getting Reviews")
     highlights_tag = soup.find_all(id = 'detail-highlight')
@@ -47,6 +57,7 @@ def getReviews(soup, info):
         getRatingNumbers(newSoup, info)
 
 
+# get rating for hotel
 def getRatingNumbers(soup, info):
     print("Getting Rating Numbers")
     ratingValue_tags = soup.find_all(class_ = 'rating-value')
@@ -65,6 +76,7 @@ def getRatingNumbers(soup, info):
     info['number_reviews'] = ratings
 
 
+# get info of amenities of hotel
 def getAmenitiesInfo(soup, info):
     print("Getting amenities info")
     hotelAmenities_tag = soup.find(id = 'detail-amenities-list1')
@@ -75,6 +87,7 @@ def getAmenitiesInfo(soup, info):
     info['available_activities'] = available_activities
 
 
+# get Awards info for hotel
 def getAwardsInfo(soup, info):
     print("Getting Awards info")
     award_tag = soup.find(id = 'tab5')
