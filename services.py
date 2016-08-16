@@ -11,9 +11,11 @@ def getBasicInfo(soup, info):
 def getOverview(soup, info):
     print("Getting Overview")
     rating_tag = soup.find(class_ = 'score')
-    info['rating'] = rating_tag.text
+    if rating_tag:
+        info['rating'] = rating_tag.text
     score_tag = soup.find(class_ = 'value')
-    info['score'] = score_tag.text
+    if score_tag:
+        info['score'] = score_tag.text
     description_tag = soup.find(class_ = 'hotel_content',
             itemprop = 'description')
     info['description'] = description_tag.text
@@ -39,9 +41,10 @@ def getReviews(soup, info):
         traveller_type_list.append(i.text)
     info['traveller_type'] = traveller_type_list
     ext_tag = soup.find(id = 'trustyou_main_div')
-    newUrl = ext_tag.contents[0].get('src')
-    newSoup = connect(newUrl)
-    getRatingNumbers(newSoup, info)
+    if ext_tag:
+        newUrl = ext_tag.contents[0].get('src')
+        newSoup = connect(newUrl)
+        getRatingNumbers(newSoup, info)
 
 
 def getRatingNumbers(soup, info):

@@ -1,7 +1,5 @@
 from crawler import crawl
-
-visited = {}
-
+from urllib.parse import urljoin
 
 def getAllLinks(soup, baseUrl):
     a_tags = soup.find_all('a')
@@ -19,7 +17,6 @@ def getAllLinks(soup, baseUrl):
 
 def start(soup, url):
     list = getAllLinks(soup, url)
-    visited[url] = True
     for i in list:
         crawl(i)
 

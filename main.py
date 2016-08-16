@@ -1,4 +1,3 @@
-from urllib.parse import urljoin
 from connection import connect
 from controller import start
 
@@ -7,7 +6,7 @@ middleEastURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destina
 
 asiaURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination/5/asia'
 
-urls = [asiaUrl, middleEastURL]
+urls = [asiaURL, middleEastURL]
 
 
 def main():
