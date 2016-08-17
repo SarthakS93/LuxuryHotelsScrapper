@@ -83,8 +83,9 @@ def getAmenitiesInfo(soup, info):
     hotelAmenities = hotelAmenities_tag.text
     info['hotel_amenities'] = hotelAmenities
     available_activities_tag = soup.find(id = 'detail-amenities-list2')
-    available_activities = available_activities_tag.text
-    info['available_activities'] = available_activities
+    if available_activities_tag:
+        available_activities = available_activities_tag.text
+        info['available_activities'] = available_activities
 
 
 # get Awards info for hotel
