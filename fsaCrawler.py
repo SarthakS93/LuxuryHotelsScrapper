@@ -2,7 +2,7 @@
 This script is re
 '''
 
-from services import getBasicInfo, getOverview, getLocation, getReviews, getAmenitiesInfo, getAwardsInfo
+from fsaServices import getBasicInfo, getOverview, getLocation, getReviews, getAmenitiesInfo, getAwardsInfo
 from connection import connect
 
 url = 'http://www.fivestaralliance.com/luxury-hotels/bangkok/banyan-tree-bangkok'

@@ -3,7 +3,7 @@ Controller for the project
 This calls the particular service functions
 '''
 
-from crawler import crawl
+from fsaCrawler import crawl
 from urllib.parse import urljoin
 
 # gets all the links of luxury hotels on a particular page

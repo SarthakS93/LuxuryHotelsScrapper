@@ -14,7 +14,7 @@ For any queries, mail to sarthaks93@gmail.com
 '''
 
 from connection import connect
-from controller import start
+from fsaController import start
 
 
 middleEastURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination/7/middle-east'
