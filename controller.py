@@ -10,12 +10,24 @@ from urllib.parse import urljoin
 def getAllLinks(soup, baseUrl):
     a_tags = soup.find_all('a')
     list = []
-    for i in a_tags:
-        if i.has_attr('href'):
-            url = i.get('href')
-            if '/luxury-hotels/' in url:
-                abs_url = urljoin(baseUrl, url)
-                list.append(abs_url)
+
+    if 'africa' in baseUrl:
+        for i in a_tags:
+            if i.has_attr('href'):
+                url = i.get('href')
+                if '/luxury-hotels/' in url:
+                    a_text = i.text
+                    if 'Mauritius' in a_text or 'Seychelles' in a_text:
+                        abs_url = urljoin(baseUrl, url)
+                        list.append(abs_url)
+
+    else:
+        for i in a_tags:
+            if i.has_attr('href'):
+                url = i.get('href')
+                if '/luxury-hotels/' in url:
+                    abs_url = urljoin(baseUrl, url)
+                    list.append(abs_url)
 
     return list
 

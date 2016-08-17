@@ -6,6 +6,7 @@ from services import getBasicInfo, getOverview, getLocation, getReviews, getAmen
 from connection import connect
 
 url = 'http://www.fivestaralliance.com/luxury-hotels/bangkok/banyan-tree-bangkok'
+#url = 'http://www.fivestaralliance.com/luxury-hotels/mahe-island/banyan-tree-seychelles'
 
 # map to store information
 info = {}

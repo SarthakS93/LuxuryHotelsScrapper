@@ -21,7 +21,10 @@ middleEastURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destina
 
 asiaURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination/5/asia'
 
-urls = [asiaURL, middleEastURL]
+africaURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination/6/africa'
+
+
+urls = [asiaURL, middleEastURL, africaURL]
 
 
 def main():
