@@ -13,24 +13,13 @@ The dependencies to run this project are:
 For any queries, mail to sarthaks93@gmail.com
 '''
 
-from connection import connect
-from fsaController import start
+from fsaController import controller
 
 
-middleEastURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination/7/middle-east'
-
-asiaURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination/5/asia'
-
-africaURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination/6/africa'
-
-
-urls = [asiaURL, middleEastURL, africaURL]
 
 
 def main():
-    for url in urls:
-        soup = connect(url)
-        start(soup, url)
+    controller()
 
 
 if __name__ == '__main__':
