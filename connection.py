@@ -10,3 +10,7 @@ def connect(url):
     else:
         soup = BeautifulSoup(r.text)
         return soup
+
+def getNewSoup(markup):
+    soup = BeautifulSoup(markup)
+    return soup
