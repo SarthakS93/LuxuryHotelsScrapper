@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import time
 
 def connect(url):
     print("Connecting to", url)
@@ -8,6 +9,7 @@ def connect(url):
         print("Exception")
         return None
     else:
+        time.sleep(2)
         soup = BeautifulSoup(r.text)
         return soup
 

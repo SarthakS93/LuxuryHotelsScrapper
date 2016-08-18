@@ -5,9 +5,11 @@ This script is re
 from connection import connect
 from telegraphService import getBasicInfo, getReviews
 
-url = 'http://www.telegraph.co.uk/travel/destinations/asia/thailand/natai-beach/hotels/iniala-beach-house-hotel/'
+#url = 'http://www.telegraph.co.uk/travel/destinations/asia/thailand/natai-beach/hotels/iniala-beach-house-hotel/'
 
 info = {}
+
+list = []
 
 # call service functions to get particular data
 def scrape(soup):
@@ -21,6 +23,8 @@ def scrape(soup):
 def showOutput():
     print("**Output is as follows**")
     print(info)
+    list.append(info['name'])
+    print('***************************************************************************************', len(list), '$$$$$$$$$$$$$$', list[len(list) - 1])
 
 # start to crawl a page
 def crawl(url):
