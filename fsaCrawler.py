@@ -2,7 +2,7 @@
 This script is re
 '''
 
-from fsaServices import getBasicInfo, getOverview, getLocation, getReviews, getAmenitiesInfo, getAwardsInfo
+from fsaServices import getBasicInfo, getOverview, getLocation, getReviewsHighlights, getAmenitiesInfo, getAwardsInfo
 from connection import connect
 
 url = 'http://www.fivestaralliance.com/luxury-hotels/bangkok/banyan-tree-bangkok'
@@ -16,7 +16,7 @@ def scrape(soup):
     getBasicInfo(soup, info)
     getOverview(soup, info)
     getLocation(soup, info)
-    getReviews(soup, info)
+    getReviewsHighlights(soup, info)
     getAmenitiesInfo(soup, info)
     getAwardsInfo(soup, info)
     # remove call to showOutput when in production

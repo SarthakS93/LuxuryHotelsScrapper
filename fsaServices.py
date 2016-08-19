@@ -38,8 +38,8 @@ def getLocation(soup, info):
 
 
 # get reviews highlights of hotel
-def getReviews(soup, info):
-    print("Getting Reviews")
+def getReviewsHighlights(soup, info):
+    print("Getting Reviews & Highlights")
     highlights_tag = soup.find_all(id = 'detail-highlight')
     highlightsList = []
     for i in highlights_tag:
@@ -55,6 +55,71 @@ def getReviews(soup, info):
         newUrl = ext_tag.contents[0].get('src')
         newSoup = connect(newUrl)
         getRatingNumbers(newSoup, info)
+        getReviews(newSoup, info)
+
+
+
+# get reviews for hotel
+def getReviews(soup, info):
+    print('Getting Reviews')
+    a_tag = soup.find('a')
+    if a_tag:
+        link = a_tag.get('href')
+        print('TempSoup source', link)
+        tempSoup = connect(link)
+        iframe_tags = soup.find_all('iframe')
+        if iframe_tags and len(iframe_tags) > 0:
+            tag = None
+            if len(iframe_tags) == 1:
+                tag = iframe_tags[0]
+            else:
+                tag = iframe_tags[1]
+
+            print('iframe source', tag.get('src'))
+            newSoup = connect(tag.get('src'))
+            getDiscreteReviews(newSoup, info)
+
+
+def getDiscreteReviews(soup, info):
+    print('Getting Discrete Reviews')
+    main_description_tag = soup.find(class_ = 'summary')
+    main_description = main_description_tag.text
+    main_description = processString(main_description)
+
+    main_div = soup.find(class_ = 'gtk')
+    ul = main_div.find('ul')
+    li = ul.find_all('li')
+    trustMap = {}
+    overview = {}
+    for tag in li:
+        heading = tag.find('h2').text
+        body = tag.find(class_ = 'snippet').find_all('span')
+        body_text = []
+        for b in body:
+            body_text.append(b.text)
+        body_text = body_text[1 : -1]
+        overview[heading] = body_text
+
+    trustMap['overview'] = overview
+
+    section = soup.find('section', class_ = 'review-highlights')
+    divs = section.find_all(class_ = 'category')
+    for div in divs:
+        key = div.find(class_ = 'category-stats').find('h2').text
+        rating = div.find(class_ = 'score').text
+        reviews = []
+        review_spans = div.find(class_ = 'category-details').find_all('span')
+        for span in review_spans:
+            reviews.append(span.text)
+
+        values = {'reviews' : reviews, 'rating' : rating}
+        trustMap[key] = values
+
+    print("The trustMap reviews are: ", trustMap)
+
+    info['trustYou_review'] = trustMap
+
+
 
 
 # get rating for hotel
@@ -103,4 +168,8 @@ def getAwardsInfo(soup, info):
         info['awards'] = list
 
 
+def processString(string):
+    string = string[ : 0]
+    string = string[1 : ]
 
+    return string
