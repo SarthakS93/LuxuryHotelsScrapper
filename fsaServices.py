@@ -67,8 +67,9 @@ def getReviews(soup, info):
         link = a_tag.get('href')
         print('TempSoup source', link)
         tempSoup = connect(link)
-        iframe_tags = soup.find_all('iframe')
-        if iframe_tags and len(iframe_tags) > 0:
+        iframe_tags = tempSoup.find_all('iframe')
+        #print(iframe_tags)
+        if iframe_tags != None and len(iframe_tags) > 0:
             tag = None
             if len(iframe_tags) == 1:
                 tag = iframe_tags[0]
@@ -97,7 +98,6 @@ def getDiscreteReviews(soup, info):
         body_text = []
         for b in body:
             body_text.append(b.text)
-        body_text = body_text[1 : -1]
         overview[heading] = body_text
 
     trustMap['overview'] = overview
