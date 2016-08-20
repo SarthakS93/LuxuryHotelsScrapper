@@ -16,3 +16,12 @@ def connect(url):
 def getNewSoup(markup):
     soup = BeautifulSoup(markup)
     return soup
+
+def googleSearchConnect(query):
+    data = {'q' : query}
+    url = 'http://www.google.com/search'
+    r = requests.get(url, data)
+    soup = BeautifulSoup(r.text)
+    return soup
+
+
