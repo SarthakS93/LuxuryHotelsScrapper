@@ -18,10 +18,14 @@ def getNewSoup(markup):
     return soup
 
 def googleSearchConnect(query):
+    print('Inside Google Search Connect')
+    print('Data to search for: ', query)
     data = {'q' : query}
     url = 'http://www.google.com/search'
-    r = requests.get(url, data)
+    print('Connecting to: ', url)
+    r = requests.get(url, params = data)
     soup = BeautifulSoup(r.text)
+    print('Returning from Google Search Connect, page title is: ', soup.title, r.status_code)
     return soup
 
 
