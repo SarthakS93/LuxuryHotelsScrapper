@@ -4,6 +4,7 @@ This script is re
 
 from fsaServices import getBasicInfo, getOverview, getLocation, getReviewsHighlights, getAmenitiesInfo, getAwardsInfo
 from connection import connect
+from tripAdvisorCrawler import start
 
 url = 'http://www.fivestaralliance.com/luxury-hotels/bangkok/banyan-tree-bangkok'
 #url = 'http://www.fivestaralliance.com/luxury-hotels/mahe-island/banyan-tree-seychelles'
@@ -19,6 +20,7 @@ def scrape(soup):
     getReviewsHighlights(soup, info)
     getAmenitiesInfo(soup, info)
     getAwardsInfo(soup, info)
+    start(info)
     # remove call to showOutput when in production
     showOutput()
 
