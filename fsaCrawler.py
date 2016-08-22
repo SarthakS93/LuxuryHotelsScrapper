@@ -7,8 +7,9 @@ from connection import connect
 from tripAdvisorCrawler import start
 from repository import save
 
-url = 'http://www.fivestaralliance.com/luxury-hotels/bangkok/banyan-tree-bangkok'
-#url = 'http://www.fivestaralliance.com/luxury-hotels/mahe-island/banyan-tree-seychelles'
+#url = 'http://www.fivestaralliance.com/luxury-hotels/bangkok/banyan-tree-bangkok'
+
+url = 'http://www.fivestaralliance.com/luxury-hotels/chengdu/sofitel-wanda-chengdu'
 
 # map to store information
 info = {}

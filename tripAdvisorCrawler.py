@@ -5,26 +5,28 @@ import csv
 
 def tripAdvisor(url, info):
     print('Inside TripAdvisor', url)
-    soup = connect(url)
-    tag = soup.find(class_ = 'reviewSelector')
-    div_tag = tag.find(class_ = 'quote')
-    if div_tag == None:
-        div_tag = tag.find(class_ = 'noQuotes')
-    link_tag = div_tag.find('a')
-    print(link_tag)
-    if link_tag:
-        link = link_tag.get('href')
-        abs_url = urljoin(url, link)
-        print('Getting reviews: ', abs_url)
-        list = getReviews(abs_url)
-        info['tripadvisor'] = list
-        '''
-        file = open('temp.csv', 'w', newline = '')
-        out = csv.writer(file)
-        out.writerow(list)
-        file.close()
-        '''
-
+    try:
+        soup = connect(url)
+        tag = soup.find(class_ = 'reviewSelector')
+        div_tag = tag.find(class_ = 'quote')
+        if div_tag == None:
+            div_tag = tag.find(class_ = 'noQuotes')
+        link_tag = div_tag.find('a')
+        print(link_tag)
+        if link_tag:
+            link = link_tag.get('href')
+            abs_url = urljoin(url, link)
+            print('Getting reviews: ', abs_url)
+            list = getReviews(abs_url)
+            info['tripadvisor'] = list
+            '''
+            file = open('temp.csv', 'w', newline = '')
+            out = csv.writer(file)
+            out.writerow(list)
+            file.close()
+            '''
+    except:
+        print('Exception in tripAdvisor')
 
 def scrape(div):
     try:
@@ -50,7 +52,7 @@ def scrape(div):
 
         return review
     except:
-        pass
+        print('Exception in scrape')
 
 
 def getReviews(url):
@@ -64,7 +66,7 @@ def getReviews(url):
 
         return list
     except:
-        pass
+        print('Exception in getReviews')
 
 
 def start(info):

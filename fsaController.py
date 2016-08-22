@@ -17,6 +17,12 @@ africaURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination
 
 urls = [asiaURL, middleEastURL, africaURL]
 
+middleEastDestinations = ['Baku', 'Dubai', 'Abu Dhabi', 'Doha', 'Muscat']
+
+asiaDestinations = ['Agra', 'Mumbai', 'Jaipur', 'Udaipur', 'Jodhpur', 'Bali',
+        'Jakarta', 'Mataram', 'Macau', 'Langkawi', 'Male', 'Manila', 'Singapore', 'Colombo', 'Bankok', 'Chiang Mai', 'Chiang Rai', 'Koh Samui',
+        'Krabi', 'Pattaya', 'Phangan', 'Phuket', ]
+
 # gets all the links of luxury hotels on a particular page
 def getAllLinks(soup, baseUrl):
     a_tags = soup.find_all('a')
@@ -32,13 +38,27 @@ def getAllLinks(soup, baseUrl):
                         abs_url = urljoin(baseUrl, url)
                         list.append(abs_url)
 
-    else:
+    elif 'middle-east' in baseUrl:
         for i in a_tags:
             if i.has_attr('href'):
                 url = i.get('href')
                 if '/luxury-hotels/' in url:
-                    abs_url = urljoin(baseUrl, url)
-                    list.append(abs_url)
+                    a_text = i.text
+                    for dest in middleEastDestinations:
+                        if dest in a_text:
+                            abs_url = urljoin(baseUrl, url)
+                            list.append(abs_url)
+
+    elif 'asia' in baseUrl:
+        for i in a_tags:
+            if i.has_attr('href'):
+                url = i.get('href')
+                if '/luxury-hotels/' in url:
+                    a_text = i.text
+                    for dest in asiaDestinations:
+                        if dest in a_text:
+                            abs_url = urljoin(baseUrl, url)
+                            list.append(abs_url)
 
     return list
 
