@@ -16,17 +16,19 @@ info = {}
 
 # call service functions to get particular data
 def scrape(soup):
-    getBasicInfo(soup, info)
-    getOverview(soup, info)
-    getLocation(soup, info)
-    getReviewsHighlights(soup, info)
-    getAmenitiesInfo(soup, info)
-    getAwardsInfo(soup, info)
-    start(info)
-    #save(info)
-    # remove call to showOutput when in production
-    showOutput()
-
+    try:
+        getBasicInfo(soup, info)
+        getOverview(soup, info)
+        getLocation(soup, info)
+        getReviewsHighlights(soup, info)
+        getAmenitiesInfo(soup, info)
+        getAwardsInfo(soup, info)
+        start(info)
+        #save(info)
+        # remove call to showOutput when in production
+        showOutput()
+    except:
+        print('Exception in scrape')
 
 # show output, optional debugging function
 def showOutput():
@@ -36,14 +38,17 @@ def showOutput():
 # start to crawl a page
 def crawl(url):
     print("Crawling this page: ", url)
-    soup = connect(url)
-    if soup == None:
-        print("Exception")
+    try:
+        soup = connect(url)
+        if soup == None:
+            print("Exception")
+            return None
+        else:
+            scrape(soup)
+            return info
+    except:
+        print('Exception in crawl for url: ', url)
         return None
-    else:
-        scrape(soup)
-        return info
-
 
 # code to enable script to run independently
 if __name__ == '__main__':

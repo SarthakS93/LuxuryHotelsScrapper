@@ -20,8 +20,7 @@ urls = [asiaURL, middleEastURL, africaURL]
 middleEastDestinations = ['Baku', 'Dubai', 'Abu Dhabi', 'Doha', 'Muscat']
 
 asiaDestinations = ['Agra', 'Mumbai', 'Jaipur', 'Udaipur', 'Jodhpur', 'Bali',
-        'Jakarta', 'Mataram', 'Macau', 'Langkawi', 'Male', 'Manila', 'Singapore', 'Colombo', 'Bankok', 'Chiang Mai', 'Chiang Rai', 'Koh Samui',
-        'Krabi', 'Pattaya', 'Phangan', 'Phuket', ]
+'Jakarta', 'Mataram', 'Macau', 'Langkawi', 'Male', 'Manila', 'Singapore', 'Colombo', 'Bankok', 'Chiang Mai', 'Chiang Rai', 'Koh Samui', 'Hua Hin', 'Krabi', 'Pattaya', 'Phangan', 'Phuket', 'Galle', 'Tangelle',]
 
 # gets all the links of luxury hotels on a particular page
 def getAllLinks(soup, baseUrl):

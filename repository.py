@@ -38,57 +38,65 @@ def save(info):
 
 def getInfoAsList(info):
     try:
-        name = info['name']
-        location = info['location']
+        name = ''
+        if 'name' in info and info['name']:
+            name = info['name']
+
+        location = ''
+        if 'location' in info and info['location']:
+            location = info['location']
+
         address = ''
-        if info['address']:
+        if 'address' in info and info['address']:
             address = info['address']
 
         location_summary = ''
-        if info['location_summary']:
+        if 'location_summary' in info and info['location_summary']:
             location_summary = info['location_summary']
 
-        description = info['description']
+        description = ''
+        if 'description' in info and info['description']:
+            description = info['description']
 
         highlights = ''
-        if info['highlights']:
+        if 'highlights' in info and info['highlights']:
             highlights = info['highlights']
 
         travellers = ''
-        if info['traveller_type']:
+        if 'traveller_type' in info and info['traveller_type']:
             travellers = info['traveller_type']
 
         trustMapReview = ''
-        if info['trustYou_review']:
+        if 'trustYou_review' in info and info['trustYou_review']:
             trustMapReview = info['trustYou_review']
 
         numberReviews = ''
-        if info['number_reviews']:
+        if 'number_reviews' in info and info['number_reviews']:
             numberReviews = info['number_reviews']
 
         hotelAmenities = ''
-        if info['hotel_amenities']:
+        if 'hotel_amenities' in info and info['hotel_amenities']:
             hotelAmenities = info['hotel_amenities']
 
         availableActivities = ''
-        if info['available_activities']:
+        if 'available_activities' in info and info['available_activities']:
             availableActivities = info['available_activities']
 
         awards = ''
-        if info['awards']:
+        if 'awards' in info and info['awards']:
             awards = info['awards']
 
         rating = ''
-        if info['rating']:
+        if 'rating' in info and info['rating']:
             rating = info['rating']
 
         score = ''
-        if info['score']:
+        if 'score' in info and info['score']:
             score = info['score']
 
 
         tripAdvisor = []
-        if info['tripadvisor']:
+        if 'tripadvisor' in info and info['tripadvisor']:
             tripAdvisor = info['tripadvisor']
 
 
