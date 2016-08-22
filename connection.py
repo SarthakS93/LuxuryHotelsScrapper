@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import time
 
+parser = 'lxml'
+
 def connect(url):
     print("Connecting to", url)
     r = requests.get(url)
@@ -10,11 +12,11 @@ def connect(url):
         return None
     else:
         time.sleep(2)
-        soup = BeautifulSoup(r.text)
+        soup = BeautifulSoup(r.text, parser)
         return soup
 
 def getNewSoup(markup):
-    soup = BeautifulSoup(markup)
+    soup = BeautifulSoup(markup, parser)
     return soup
 
 def googleSearchConnect(query):
@@ -23,7 +25,7 @@ def googleSearchConnect(query):
     url = 'http://www.google.com/search'
     r = requests.get(url, params = data)
     time.sleep(2)
-    soup = BeautifulSoup(r.text)
+    soup = BeautifulSoup(r.text, parser)
     return soup
 
 

@@ -82,40 +82,46 @@ def getReviews(soup, info):
 
 
 def getDiscreteReviews(soup, info):
-    print('Getting Discrete Reviews')
-    main_description_tag = soup.find(class_ = 'summary')
-    main_description = main_description_tag.text
-    main_description = processString(main_description)
+    try:
+        print('Getting Discrete Reviews')
+        main_description_tag = soup.find(class_ = 'summary')
+        main_description = main_description_tag.text
+        main_description = processString(main_description)
 
-    main_div = soup.find(class_ = 'gtk')
-    ul = main_div.find('ul')
-    li = ul.find_all('li')
-    trustMap = {}
-    overview = {}
-    for tag in li:
-        heading = tag.find('h2').text
-        body = tag.find(class_ = 'snippet').find_all('span')
-        body_text = []
-        for b in body:
-            body_text.append(b.text)
-        overview[heading] = body_text
+        main_div = soup.find(class_ = 'gtk')
+        ul = main_div.find('ul')
+        li = ul.find_all('li')
+        trustMap = {}
+        overview = {}
+        for tag in li:
+            heading = tag.find('h2').text
+            body = tag.find(class_ = 'snippet').find_all('span')
+            body_text = []
+            for b in body:
+                body_text.append(b.text)
+            overview[heading] = body_text
 
-    trustMap['overview'] = overview
+        trustMap['overview'] = overview
 
-    section = soup.find('section', class_ = 'review-highlights')
-    divs = section.find_all(class_ = 'category')
-    for div in divs:
-        key = div.find(class_ = 'category-stats').find('h2').text
-        rating = div.find(class_ = 'score').text
-        reviews = []
-        review_spans = div.find(class_ = 'category-details').find_all('span')
-        for span in review_spans:
-            reviews.append(span.text)
+        section = soup.find('section', class_ = 'review-highlights')
+        divs = section.find_all(class_ = 'category')
+        for div in divs:
+            key = div.find(class_ = 'category-stats').find('h2').text
+            rating = div.find(class_ = 'score').text
+            reviews = []
+            review_spans = div.find(class_ = 'category-details').find_all('span')
+            for span in review_spans:
+                reviews.append(span.text)
 
-        values = {'reviews' : reviews, 'rating' : rating}
-        trustMap[key] = values
+            values = {'reviews' : reviews, 'rating' : rating}
+            trustMap[key] = values
 
-    print("The trustMap reviews are: ", trustMap)
+        print("The trustMap reviews are: ", trustMap)
+
+    except:
+        print('Not enogh data for trust you reviews')
+        info['trustYou_review'] = None
+        return
 
     info['trustYou_review'] = trustMap
 

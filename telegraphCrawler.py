@@ -5,7 +5,7 @@ This script is re
 from connection import connect
 from telegraphService import getBasicInfo, getReviews
 
-#url = 'http://www.telegraph.co.uk/travel/destinations/asia/thailand/natai-beach/hotels/iniala-beach-house-hotel/'
+url = 'http://www.telegraph.co.uk/travel/destinations/asia/thailand/natai-beach/hotels/iniala-beach-house-hotel/'
 
 info = {}
 

@@ -22,7 +22,7 @@ def scrape(soup):
     getAmenitiesInfo(soup, info)
     getAwardsInfo(soup, info)
     start(info)
-    save(info)
+    #save(info)
     # remove call to showOutput when in production
     showOutput()
 
@@ -41,6 +41,7 @@ def crawl(url):
         return
     else:
         scrape(soup)
+        return info
 
 
 # code to enable script to run independently

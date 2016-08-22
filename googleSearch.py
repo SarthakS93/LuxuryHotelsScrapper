@@ -16,3 +16,5 @@ def search(query):
             else:
                 return href_text
 
+    return None
+

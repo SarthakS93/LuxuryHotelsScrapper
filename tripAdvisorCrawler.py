@@ -73,9 +73,13 @@ def start(info):
     queryDictionary['search'] = searchString
     url = None
     i = 0
-    while(i < 5):
-        url = search(queryDictionary)
-        i = i + 1
+    while(i < 10):
+        if url == None:
+            url = search(queryDictionary)
+            i = i + 1
+        else:
+            break
+
 
     if url:
         tripAdvisor(url, info)

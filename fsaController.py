@@ -6,7 +6,7 @@ This calls the particular service functions
 from fsaCrawler import crawl
 from urllib.parse import urljoin
 from connection import connect
-
+from repository import save, saveData
 
 middleEastURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination/7/middle-east'
 
@@ -44,13 +44,18 @@ def getAllLinks(soup, baseUrl):
 
 
 # calls crawl function to scrape data for all links
-def start(soup, url):
+def start(soup, url, dataList):
     list = getAllLinks(soup, url)
     for i in list:
-        crawl(i)
+        info = crawl(i)
+        dataList.append(info)
 
 # controller method
 def controller():
+    dataList = []
     for url in urls:
         soup = connect(url)
-        start(soup, url)
+        start(soup, url, dataList)
+
+    print('******Crawling complete******')
+    saveData(dataList)
