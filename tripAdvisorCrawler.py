@@ -1,12 +1,15 @@
 from googleSearch import search
 from connection import connect
 from urllib.parse import urljoin
+import csv
 
 def tripAdvisor(url, info):
     print('Inside TripAdvisor', url)
     soup = connect(url)
     tag = soup.find(class_ = 'reviewSelector')
-    div_tag = tag.find(class_ = 'quote isNew')
+    div_tag = tag.find(class_ = 'quote')
+    if div_tag == None:
+        div_tag = tag.find(class_ = 'noQuotes')
     link_tag = div_tag.find('a')
     print(link_tag)
     if link_tag:
@@ -14,44 +17,54 @@ def tripAdvisor(url, info):
         abs_url = urljoin(url, link)
         print('Getting reviews: ', abs_url)
         list = getReviews(abs_url)
-        print(list)
         info['tripadvisor'] = list
-
+        '''
+        file = open('temp.csv', 'w', newline = '')
+        out = csv.writer(file)
+        out.writerow(list)
+        file.close()
+        '''
 
 
 def scrape(div):
-    review = {}
-    overview_tag = div.find(class_ = 'quote')
-    overview = overview_tag.text[1 : -1]
-    review['overview'] = overview
-    rating = div.find('img', class_ = 'rating_s_fill').get('alt')
-    review['rating'] = rating
-    review_body_tag = div.find('p')
-    review_body = review_body_tag.text[1 : -1]
-    review['body'] = review_body
-    review_points_tag = div.find_all(class_ = 'recommend-answer')
-    review_points = {}
-    if review_points_tag != None and len(review_points_tag) > 0:
-        for point in review_points_tag:
-            key = point.find(class_ = 'recommend-description').text
-            value = point.find('img').get('alt')
-            review_points[key] = value
-            review['points'] = review_points
-    else:
-        review['points'] = None
+    try:
+        review = {}
+        overview_tag = div.find(class_ = 'quote')
+        overview = overview_tag.text[1 : -1]
+        review['overview'] = overview
+        rating = div.find('img', class_ = 'rating_s_fill').get('alt')
+        review['rating'] = rating
+        review_body_tag = div.find('p')
+        review_body = review_body_tag.text[1 : -1]
+        review['body'] = review_body
+        review_points_tag = div.find_all(class_ = 'recommend-answer')
+        review_points = {}
+        if review_points_tag != None and len(review_points_tag) > 0:
+            for point in review_points_tag:
+                key = point.find(class_ = 'recommend-description').text
+                value = point.find('img').get('alt')
+                review_points[key] = value
+                review['points'] = review_points
+        else:
+            review['points'] = None
 
-    return review
+        return review
+    except:
+        pass
 
 
 def getReviews(url):
-    soup = connect(url)
-    divs = soup.find_all(class_ = 'innerBubble')
-    list = []
-    for div in divs:
-        review = scrape(div)
-        list.append(review)
+    try:
+        soup = connect(url)
+        divs = soup.find_all(class_ = 'innerBubble')
+        list = []
+        for div in divs:
+            review = scrape(div)
+            list.append(review)
 
-    return list
+        return list
+    except:
+        pass
 
 
 def start(info):
@@ -59,10 +72,15 @@ def start(info):
     searchString = 'tripadvisor' + ' ' + info['name'] + ' ' + info['location']
     queryDictionary['search'] = searchString
     url = None
-    while(url == None):
+    i = 0
+    while(i < 5):
         url = search(queryDictionary)
+        i = i + 1
+
     if url:
         tripAdvisor(url, info)
+    else:
+        print('Tripadvisor could not be found for: ', info['search'])
 
 if __name__ == '__main__':
     name = input('Enter name: ')
@@ -75,4 +93,5 @@ if __name__ == '__main__':
     while(url == None):
         url = search(q)
     if url:
-        tripAdvisor(url)
+        info = {}
+        tripAdvisor(url, info)
