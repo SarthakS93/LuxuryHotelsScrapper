@@ -39,7 +39,7 @@ def crawl(url):
     soup = connect(url)
     if soup == None:
         print("Exception")
-        return
+        return None
     else:
         scrape(soup)
         return info

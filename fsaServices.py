@@ -62,8 +62,9 @@ def getReviewsHighlights(soup, info):
         if ext_tag:
             newUrl = ext_tag.contents[0].get('src')
             newSoup = connect(newUrl)
-            getRatingNumbers(newSoup, info)
-            getReviews(newSoup, info)
+            if newSoup:
+                getRatingNumbers(newSoup, info)
+                getReviews(newSoup, info)
 
     except:
         print('Exception in getReviewHighlights')
@@ -78,18 +79,20 @@ def getReviews(soup, info):
             link = a_tag.get('href')
             print('TempSoup source', link)
             tempSoup = connect(link)
-            iframe_tags = tempSoup.find_all('iframe')
-            #print(iframe_tags)
-            if iframe_tags != None and len(iframe_tags) > 0:
-                tag = None
-                if len(iframe_tags) == 1:
-                    tag = iframe_tags[0]
-                else:
-                    tag = iframe_tags[1]
+            if tempSoup:
+                iframe_tags = tempSoup.find_all('iframe')
+                #print(iframe_tags)
+                if iframe_tags != None and len(iframe_tags) > 0:
+                    tag = None
+                    if len(iframe_tags) == 1:
+                        tag = iframe_tags[0]
+                    else:
+                        tag = iframe_tags[1]
 
-                print('iframe source', tag.get('src'))
-                newSoup = connect(tag.get('src'))
-                getDiscreteReviews(newSoup, info)
+                    print('iframe source', tag.get('src'))
+                    newSoup = connect(tag.get('src'))
+                    if newSoup:
+                        getDiscreteReviews(newSoup, info)
     except:
         print('Exception in getReviews')
 

@@ -68,14 +68,16 @@ def start(soup, url, dataList):
     list = getAllLinks(soup, url)
     for i in list:
         info = crawl(i)
-        dataList.append(info)
+        if info:
+            dataList.append(info)
 
 # controller method
 def controller():
     dataList = []
     for url in urls:
         soup = connect(url)
-        start(soup, url, dataList)
+        if soup:
+            start(soup, url, dataList)
 
     print('******Crawling complete******')
     saveData(dataList)
