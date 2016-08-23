@@ -4,9 +4,9 @@ tempPath = 'temp.csv'
 filePath = 'fsa.csv'
 
 
-header = ['name', 'location', 'address', 'location summary', 'desctiption',
-         'highlights', 'travellers type', 'available activities', 'hotel amenities', 'awards',
-         'score', 'rating', 'trust you review', 'tripadvisor review', 'agoda review', 'review numbers']
+header = ['name', 'location', 'address', 'location summary', 'desctiption', 'highlights', 'rooms',
+        'travellers type', 'available activities', 'hotel amenities', 'awards', 'score', 'rating',
+        'trust you review', 'tripadvisor review', 'agoda.com review', 'booking.com data', 'review numbers']
 
 def saveData(dataList):
     file = open(filePath, 'w', newline = '')
@@ -103,10 +103,19 @@ def getInfoAsList(info):
         if 'agoda' in info and info['agoda']:
             agoda = info['agoda']
 
+        rooms = []
+        if 'rooms' in info and info['rooms']:
+            rooms = info['rooms']
+
+        booking_data = ''
+        if 'booking_data' in info and info['booking_data']:
+            booking_data = info['booking_data']
+
 
         list = [name, location, address, location_summary, description, highlights,
-                travellers, availableActivities, hotelAmenities, awards,
-                score, rating, trustMapReview, tripAdvisor, agoda, numberReviews]
+                rooms, travellers, availableActivities, hotelAmenities, awards,
+                score, rating, trustMapReview, tripAdvisor, agoda, booking_data,
+                numberReviews]
 
         return list
 

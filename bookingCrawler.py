@@ -11,6 +11,12 @@ def booking(url, info):
             rooms = getRoomTypes(soup)
             points = getPoints(soup)
             score = getBookingScore(soup)
+
+            info['rooms'] = rooms
+            bookingMap = {'points' : points, 'score' : score}
+
+            info['booking_data'] = bookingMap
+
     except:
         print('Exception in tripAdvisor')
 
@@ -32,13 +38,13 @@ def getBookingScore(soup):
 def getRoomTypes(soup):
     print('Inside getRoomTypes')
     try:
-        table = soup.find_all(id = 'rooms_table')
+        table = soup.find(id = 'rooms_table')
         if table:
             divs = table.find_all(class_ = 'ftd')
             list = []
             if divs:
                 for item in divs:
-                    text = items.text
+                    text = item.text
                     text = text[1 : -1]
                     list.append(text)
 
@@ -49,7 +55,7 @@ def getRoomTypes(soup):
 
     except:
         print('Exception in getRoomTypes')
-        retrun None
+        return None
 
 def getPoints(soup):
     print('Inside getPoints')
@@ -64,7 +70,7 @@ def getPoints(soup):
             for i in range(len(labels)):
                 label = labels[i].text
                 rating = ratings[i].text
-                map[labels[i]] = ratings[i]
+                map[label] = rating
 
             return map
 
@@ -75,7 +81,7 @@ def getPoints(soup):
         print('Exception in getPoints')
         return None
 
-def startAgoda(info):
+def startBooking(info):
     try:
         queryDictionary = {'name' : info['name'], 'location' : info['location']}
         searchString = 'booking.com' + ' ' + info['name'] + ' ' + info['location']
@@ -84,18 +90,18 @@ def startAgoda(info):
         i = 0
         while(i < 10):
             if url == None:
-                url = booking(queryDictionary)
+                url = bookingSearch(queryDictionary)
                 i = i + 1
             else:
                 break
 
 
         if url:
-            agoda(url, info)
+            booking(url, info)
         else:
-            print('Agoda.com could not be found for: ', info['search'])
+            print('Booking.com could not be found for: ', info['search'])
     except:
-        print('Exception in startAgoda')
+        print('Exception in startBooking')
 
 if __name__ == '__main__':
     name = input('Enter name: ')

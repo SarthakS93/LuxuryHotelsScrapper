@@ -6,6 +6,7 @@ from fsaServices import getBasicInfo, getOverview, getLocation, getReviewsHighli
 from connection import connect
 from tripAdvisorCrawler import startTripAdvisor
 from agodaCrawler import startAgoda
+from bookingCrawler import startBooking
 from repository import save
 
 url = 'http://www.fivestaralliance.com/luxury-hotels/bangkok/banyan-tree-bangkok'
@@ -24,6 +25,7 @@ def scrape(soup):
         getAwardsInfo(soup, info)
         startTripAdvisor(info)
         startAgoda(info)
+        startBooking(info)
         save(info)
         # remove call to showOutput when in production
         showOutput()
