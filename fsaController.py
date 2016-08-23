@@ -15,12 +15,12 @@ asiaURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination/5
 africaURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination/6/africa'
 
 
-urls = [asiaURL, middleEastURL, africaURL]
-
+#urls = [asiaURL, middleEastURL, africaURL]
+urls = [africaURL]
 middleEastDestinations = ['Baku', 'Dubai', 'Abu Dhabi', 'Doha', 'Muscat']
 
-asiaDestinations = ['Agra', 'Mumbai', 'Jaipur', 'Udaipur', 'Jodhpur', 'Bali',
-'Jakarta', 'Mataram', 'Macau', 'Langkawi', 'Male', 'Manila', 'Singapore', 'Colombo', 'Bankok', 'Chiang Mai', 'Chiang Rai', 'Koh Samui', 'Hua Hin', 'Krabi', 'Pattaya', 'Phangan', 'Phuket', 'Galle', 'Tangelle',]
+asiaDestinations = ['Jaipur', 'Udaipur', 'Jodhpur', 'Bali',
+'Jakarta', 'Mataram', 'Macau', 'Langkawi', 'Male', 'Manila', 'Singapore', 'Colombo', 'Bangkok', 'Chiang Mai', 'Chiang Rai', 'Koh Samui', 'Hua Hin', 'Krabi', 'Pattaya', 'Phangan', 'Phuket', 'Galle', 'Tangelle',]
 
 # gets all the links of luxury hotels on a particular page
 def getAllLinks(soup, baseUrl):

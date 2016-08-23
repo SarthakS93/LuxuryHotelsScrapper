@@ -9,7 +9,7 @@ header = ['name', 'location', 'address', 'location summary', 'desctiption',
          'score', 'rating', 'trust you review', 'tripadvisor review', 'review numbers']
 
 def saveData(dataList):
-    file = open(filePath, 'w', newLine = '')
+    file = open(filePath, 'w', newline = '')
     out = csv.writer(file)
     out.writerow(header)
     try:
