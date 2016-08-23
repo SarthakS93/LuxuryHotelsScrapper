@@ -1,4 +1,4 @@
-from googleSearch import search
+from googleSearch import tripAdvisorSearch
 from connection import connect
 from urllib.parse import urljoin
 import csv
@@ -79,7 +79,7 @@ def start(info):
     i = 0
     while(i < 10):
         if url == None:
-            url = search(queryDictionary)
+            url = tripAdvisorSearch(queryDictionary)
             i = i + 1
         else:
             break
@@ -99,7 +99,7 @@ if __name__ == '__main__':
     q['search'] = 'tripadvisor' + ' ' + name + ' ' + loc
     url = None
     while(url == None):
-        url = search(q)
+        url = tripAdvisorSearch(q)
     if url:
         info = {}
         tripAdvisor(url, info)
