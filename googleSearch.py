@@ -5,7 +5,6 @@ def tripAdvisorSearch(query):
     try:
         soup = googleSearchConnect(query['search'])
         if soup:
-            print('asd')
             a_tags = soup.find_all('a')
             for tag in a_tags:
                 href_text = tag.get('href')
@@ -26,7 +25,6 @@ def agodaSearch(query):
     try:
         soup = googleSearchConnect(query['search'])
         if soup:
-            print('asd')
             a_tags = soup.find_all('a')
             for tag in a_tags:
                 href_text = tag.get('href')
@@ -39,6 +37,25 @@ def agodaSearch(query):
 
     except:
         print('Exception in agoda search')
+        return None
+
+def bookingSearch(query):
+    print('Inside booking search')
+    try:
+        soup = googleSearchConnect(query['search'])
+        if soup:
+            a_tags = soup.find_all('a')
+            for tag in a_tags:
+                href_text = tag.get('href')
+                if 'booking.com' in href_text and '/hotel/' in href_text:
+                    link = getLinkFromText(href_text)
+                    return link
+
+        print('Nothing found in booking search')
+        return None
+
+    except:
+        print('Exception in booking Search')
         return None
 
 

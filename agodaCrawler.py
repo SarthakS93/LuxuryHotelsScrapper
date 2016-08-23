@@ -103,23 +103,26 @@ def showOutput(info):
     print(info)
 
 def startAgoda(info):
-    queryDictionary = {'name' : info['name'], 'location' : info['location']}
-    searchString = 'agoda.com' + ' ' + info['name'] + ' ' + info['location']
-    queryDictionary['search'] = searchString
-    url = None
-    i = 0
-    while(i < 10):
-        if url == None:
-            url = agodaSearch(queryDictionary)
-            i = i + 1
+    try:
+        queryDictionary = {'name' : info['name'], 'location' : info['location']}
+        searchString = 'agoda.com' + ' ' + info['name'] + ' ' + info['location']
+        queryDictionary['search'] = searchString
+        url = None
+        i = 0
+        while(i < 10):
+            if url == None:
+                url = agodaSearch(queryDictionary)
+                i = i + 1
+            else:
+                break
+
+
+        if url:
+            agoda(url, info)
         else:
-            break
-
-
-    if url:
-        agoda(url, info)
-    else:
-        print('Agoda.com could not be found for: ', info['search'])
+            print('Agoda.com could not be found for: ', info['search'])
+    except:
+        print('Exception in startAgoda')
 
 if __name__ == '__main__':
     name = input('Enter name: ')

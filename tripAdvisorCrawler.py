@@ -72,23 +72,26 @@ def getReviews(url):
 
 
 def startTripAdvisor(info):
-    queryDictionary = {'name' : info['name'], 'location' : info['location']}
-    searchString = 'tripadvisor' + ' ' + info['name'] + ' ' + info['location']
-    queryDictionary['search'] = searchString
-    url = None
-    i = 0
-    while(i < 10):
-        if url == None:
-            url = tripAdvisorSearch(queryDictionary)
-            i = i + 1
+    try:
+        queryDictionary = {'name' : info['name'], 'location' : info['location']}
+        searchString = 'tripadvisor' + ' ' + info['name'] + ' ' + info['location']
+        queryDictionary['search'] = searchString
+        url = None
+        i = 0
+        while(i < 10):
+            if url == None:
+                url = tripAdvisorSearch(queryDictionary)
+                i = i + 1
+            else:
+                break
+
+
+        if url:
+            tripAdvisor(url, info)
         else:
-            break
-
-
-    if url:
-        tripAdvisor(url, info)
-    else:
-        print('Tripadvisor could not be found for: ', info['search'])
+            print('Tripadvisor could not be found for: ', info['search'])
+    except:
+        print('Exception in startTripAdvisor')
 
 if __name__ == '__main__':
     name = input('Enter name: ')
