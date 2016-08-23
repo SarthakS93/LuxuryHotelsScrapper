@@ -8,8 +8,57 @@ def booking(url, info):
     try:
         soup = connect(url)
         if soup:
+            rooms = getRoomTypes(soup)
+            points = getPoints(soup)
     except:
         print('Exception in tripAdvisor')
+
+
+def getRoomTypes(soup):
+    print('Inside getRoomTypes')
+    try:
+        table = soup.find_all(id = 'rooms_table')
+        if table:
+            divs = table.find_all(class_ = 'ftd')
+            list = []
+            if divs:
+                for item in divs:
+                    text = items.text
+                    text = text[1 : -1]
+                    list.append(text)
+
+                return list
+
+        print('Nothing found in getRoomTypes')
+        return None
+
+    except:
+        print('Exception in getRoomTypes')
+        retrun None
+
+def getPoints(soup):
+    print('Inside getPoints')
+    try:
+        container = soup.find(id = 'reviewFloater')
+        if container:
+            labels = soup.find_all('p', 'review_score_name')
+            ratings = soup.find_all('p', 'review_score_value')
+
+            map = {}
+
+            for i in range(len(labels)):
+                label = labels[i].text
+                rating = ratings[i].text
+                map[labels[i]] = ratings[i]
+
+            return map
+
+        print('Nothing found in getPoints')
+        return None
+
+    except:
+        print('Exception in getPoints')
+        return None
 
 def startAgoda(info):
     try:
