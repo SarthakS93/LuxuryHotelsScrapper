@@ -10,9 +10,24 @@ def booking(url, info):
         if soup:
             rooms = getRoomTypes(soup)
             points = getPoints(soup)
+            score = getBookingScore(soup)
     except:
         print('Exception in tripAdvisor')
 
+
+def getBookingScore(soup):
+    print('Inside getBookingScore')
+    try:
+        tag = soup.find(class_ = 'average')
+        if tag:
+            return tag.text
+
+        print('Nothing found in getBookingScore')
+        return None
+
+    except:
+        print('Exception in getBookingScore')
+        return None
 
 def getRoomTypes(soup):
     print('Inside getRoomTypes')
