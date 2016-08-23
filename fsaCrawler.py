@@ -4,12 +4,11 @@ This script is re
 
 from fsaServices import getBasicInfo, getOverview, getLocation, getReviewsHighlights, getAmenitiesInfo, getAwardsInfo
 from connection import connect
-from tripAdvisorCrawler import start
+from tripAdvisorCrawler import startTripAdvisor
+from agodaCrawler import startAgoda
 from repository import save
 
-#url = 'http://www.fivestaralliance.com/luxury-hotels/bangkok/banyan-tree-bangkok'
-
-url = 'http://www.fivestaralliance.com/luxury-hotels/chengdu/sofitel-wanda-chengdu'
+url = 'http://www.fivestaralliance.com/luxury-hotels/bangkok/banyan-tree-bangkok'
 
 # map to store information
 info = {}
@@ -23,8 +22,9 @@ def scrape(soup):
         getReviewsHighlights(soup, info)
         getAmenitiesInfo(soup, info)
         getAwardsInfo(soup, info)
-        start(info)
-        #save(info)
+        startTripAdvisor(info)
+        startAgoda(info)
+        save(info)
         # remove call to showOutput when in production
         showOutput()
     except:

@@ -5,23 +5,20 @@ def tripAdvisorSearch(query):
     try:
         soup = googleSearchConnect(query['search'])
         if soup:
+            print('asd')
             a_tags = soup.find_all('a')
             for tag in a_tags:
-                tag_text = tag.text
-                tag_text = tag_text.lower()
                 href_text = tag.get('href')
-                name = query['name'].lower()
                 if 'tripadvisor.in' in href_text:
-                    #if name in tag_text:
-                    if '/url?q=' in href_text:
-                        return href_text[7 : ]
-                    else:
-                        return href_text
+                    link = getLinkFromText(href_text)
+                    return link
 
+        print('Nothing found in tripadvisor')
         return None
 
     except:
         print('Exception in tripadvisor search')
+        return None
 
 
 def agodaSearch(query):
@@ -29,19 +26,31 @@ def agodaSearch(query):
     try:
         soup = googleSearchConnect(query['search'])
         if soup:
+            print('asd')
             a_tags = soup.find_all('a')
             for tag in a_tags:
-                tag_text = tag.text
                 href_text = tag.get('href')
                 if 'agoda.com' in href_text and '/hotel/' in href_text:
-                    link = ''
+                    link = getLinkFromText(href_text)
+                    return link
 
-                    if '&' in href_text:
-                        link = href_text.split('&')[0]
+        print('Nothing found in agoda search')
+        return None
 
-                    if '/url?q=' in link:
-                        return link[7 : ]
-                    else:
-                        return link
+    except:
+        print('Exception in agoda search')
+        return None
 
 
+def getLinkFromText(href_text):
+    link = ''
+    print(href_text)
+    if '&' in href_text:
+        link = href_text.split('&')[0]
+    else:
+        link = href_text
+
+    if '/url?q=' in link:
+        return link[7 : ]
+    else:
+        return link

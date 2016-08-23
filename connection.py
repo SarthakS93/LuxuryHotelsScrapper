@@ -34,6 +34,7 @@ def googleSearchConnect(query):
             print("Exception")
             return None
         else:
+            print('Successful Request')
             time.sleep(1)
             soup = BeautifulSoup(r.text, parser)
             return soup

@@ -6,7 +6,7 @@ filePath = 'fsa.csv'
 
 header = ['name', 'location', 'address', 'location summary', 'desctiption',
          'highlights', 'travellers type', 'available activities', 'hotel amenities', 'awards',
-         'score', 'rating', 'trust you review', 'tripadvisor review', 'review numbers']
+         'score', 'rating', 'trust you review', 'tripadvisor review', 'agoda review', 'review numbers']
 
 def saveData(dataList):
     file = open(filePath, 'w', newline = '')
@@ -27,7 +27,7 @@ def saveData(dataList):
 
 
 def save(info):
-    file = open(filePath, 'w', newline = '')
+    file = open(tempPath, 'w', newline = '')
     out = csv.writer(file)
     list = getInfoAsList(info)
     if list:
@@ -99,10 +99,14 @@ def getInfoAsList(info):
         if 'tripadvisor' in info and info['tripadvisor']:
             tripAdvisor = info['tripadvisor']
 
+        agoda = None
+        if 'agoda' in info and info['agoda']:
+            agoda = info['agoda']
+
 
         list = [name, location, address, location_summary, description, highlights,
                 travellers, availableActivities, hotelAmenities, awards,
-                score, rating, trustMapReview, tripAdvisor, numberReviews]
+                score, rating, trustMapReview, tripAdvisor, agoda, numberReviews]
 
         return list
 

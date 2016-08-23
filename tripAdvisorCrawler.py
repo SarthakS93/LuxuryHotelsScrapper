@@ -71,7 +71,7 @@ def getReviews(url):
         print('Exception in getReviews')
 
 
-def start(info):
+def startTripAdvisor(info):
     queryDictionary = {'name' : info['name'], 'location' : info['location']}
     searchString = 'tripadvisor' + ' ' + info['name'] + ' ' + info['location']
     queryDictionary['search'] = searchString
