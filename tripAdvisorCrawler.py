@@ -12,24 +12,53 @@ def tripAdvisor(url, info):
             div_tag = tag.find(class_ = 'quote')
             if div_tag == None:
                 div_tag = tag.find(class_ = 'noQuotes')
+
             link_tag = div_tag.find('a')
-            print(link_tag)
             if link_tag:
                 link = link_tag.get('href')
                 abs_url = urljoin(url, link)
                 print('Getting reviews: ', abs_url)
                 list = getReviews(abs_url)
                 info['tripadvisor'] = list
-                '''
-                file = open('temp.csv', 'w', newline = '')
-                out = csv.writer(file)
-                out.writerow(list)
-                file.close()
-                '''
+
+            getMiscInfo(soup, info)
+
     except:
         print('Exception in tripAdvisor')
 
+
+def getMiscInfo(soup, info):
+    print('Inside getMiscInfo')
+    try:
+        attractions = soup.find(class_ = 'attractions')
+        list = []
+        if attractions:
+            divs = attractions.find_all(class_ = 'attraction')
+            if divs:
+                for div in divs:
+                    tag = div.find(class_ = 'nameWrapper')
+                    text = tag.text[1 : -1]
+                    list.append(text)
+
+        info['attractions'] = list
+
+        eateries = soup.find(class_ = 'eateries')
+        list = []
+        if eateries:
+            divs = eateries.find_all(class_ = 'eatery')
+            if divs:
+                for div in divs:
+                    tag = div.find(class_ = 'nameWrapper')
+                    text = tag.text[1 : -1]
+                    list.append(text)
+
+        info['eateries'] = list
+    except:
+        print('Exception in getMiscInfo')
+
+
 def scrape(div):
+    print('Inside tripadvisor scrape')
     try:
         review = {}
         overview_tag = div.find(class_ = 'quote')
