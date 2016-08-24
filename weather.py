@@ -4,7 +4,6 @@ from googleSearch import weatherSearch
 
 def func(url):
     soup = connect(url)
-    print(soup.title)
     body = soup.find(id = 'NEXUS')
     container = body.find(class_ = 'articleBody')
 
@@ -17,6 +16,21 @@ def func(url):
     info['weather'] = weather
     info['description'] = str
     print(info)
+
+
+def func2(url):
+    soup = connect(url)
+    container = soup.find(class_ = 'balance')
+    divs = container.find_all(class_ = 'post')
+
+    list = []
+    for div in divs:
+        container = div.find(class_ = 'postBody')
+        str = container.text
+        str = str.replace('\n', '')
+        list.append(str)
+    print(list)
+    return list
 
 def getWeather(soup):
     container = soup.find(id = 'weatherHistory')
@@ -41,8 +55,11 @@ def getWeather(soup):
 def start(destination):
     query = 'tripadvisor best time to visit ' + destination
     queryDictionary = {'search' : query}
-    url = weatherSearch(queryDictionary)
-    func(url)
+    urls = weatherSearch(queryDictionary)
+    if urls[0] != '':
+        func(urls[0])
+    if urls[1] != '':
+        func2(urls[1])
 
 if __name__ == '__main__':
     destination = input('Enter destination: ')

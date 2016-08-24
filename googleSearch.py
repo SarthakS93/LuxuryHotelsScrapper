@@ -64,14 +64,23 @@ def weatherSearch(query):
     try:
         soup = googleSearchConnect(query['search'])
         if soup:
+            link1 = ''
+            link2 = ''
             print(soup.title)
             a_tags = soup.find_all('a')
             for tag in a_tags:
                 href_text = tag.get('href')
                 if 'tripadvisor' in href_text and 'When.To.Go' in href_text:
-                    print(tag)
-                    link = getLinkFromText(href_text)
-                    return link
+                    link1 = getLinkFromText(href_text)
+                    break
+            for tag in a_tags:
+                href_text = tag.get('href')
+                if 'tripadvisor' in href_text and 'Best_time_to_visit' in href_text:
+                    link2 = getLinkFromText(href_text)
+                    break
+
+            data = (link1, link2)
+            return data
 
         print('Nothing found in weather search')
         return None
