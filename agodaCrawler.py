@@ -109,7 +109,7 @@ def startAgoda(info):
         queryDictionary['search'] = searchString
         url = None
         i = 0
-        while(i < 10):
+        while(i < 3):
             if url == None:
                 url = agodaSearch(queryDictionary)
                 i = i + 1

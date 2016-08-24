@@ -131,8 +131,6 @@ def getDiscreteReviews(soup, info):
             values = {'reviews' : reviews, 'rating' : rating}
             trustMap[key] = values
 
-        print("The trustMap reviews are: ", trustMap)
-
     except:
         print('Not enogh data for trust you reviews')
         info['trustYou_review'] = None

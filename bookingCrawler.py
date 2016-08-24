@@ -62,17 +62,26 @@ def getPoints(soup):
     try:
         container = soup.find(id = 'reviewFloater')
         if container:
-            labels = soup.find_all('p', 'review_score_name')
-            ratings = soup.find_all('p', 'review_score_value')
+            labels = soup.find_all('p', class_ = 'review_score_name')
+            ratings = soup.find_all('p', class_ = 'review_score_value')
 
-            map = {}
+            tempMap = {}
 
             for i in range(len(labels)):
                 label = labels[i].text
                 rating = ratings[i].text
-                map[label] = rating
+                tempMap[label] = rating
 
-            return map
+            keys = {'Valiue for money': True, 'Comfort': True, 'Location': True,
+                    'Staff': True, 'Facilities': True, 'Cleanliness': True,
+                    'Free WiFi': True}
+
+            points = {}
+            for k in tempMap:
+                if k in keys:
+                    points[k] = tempMap[k]
+
+            return points
 
         print('Nothing found in getPoints')
         return None
@@ -88,7 +97,7 @@ def startBooking(info):
         queryDictionary['search'] = searchString
         url = None
         i = 0
-        while(i < 10):
+        while(i < 3):
             if url == None:
                 url = bookingSearch(queryDictionary)
                 i = i + 1

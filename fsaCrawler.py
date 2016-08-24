@@ -11,11 +11,9 @@ from repository import save
 
 url = 'http://www.fivestaralliance.com/luxury-hotels/bangkok/banyan-tree-bangkok'
 
-# map to store information
-info = {}
 
 # call service functions to get particular data
-def scrape(soup):
+def scrape(soup, info):
     try:
         getBasicInfo(soup, info)
         getOverview(soup, info)
@@ -28,7 +26,7 @@ def scrape(soup):
         startBooking(info)
         save(info)
         # remove call to showOutput when in production
-        showOutput()
+        #showOutput()
     except:
         print('Exception in scrape')
 
@@ -40,13 +38,14 @@ def showOutput():
 # start to crawl a page
 def crawl(url):
     print("Crawling this page: ", url)
+    info = {}
     try:
         soup = connect(url)
         if soup == None:
             print("Exception")
             return None
         else:
-            scrape(soup)
+            scrape(soup, info)
             return info
     except:
         print('Exception in crawl for url: ', url)

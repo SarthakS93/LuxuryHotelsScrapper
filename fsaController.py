@@ -17,6 +17,9 @@ africaURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination
 
 #urls = [asiaURL, middleEastURL, africaURL]
 urls = [africaURL]
+
+africaDestinations = ['Maasai Mara']
+
 middleEastDestinations = ['Baku', 'Dubai', 'Abu Dhabi', 'Doha', 'Muscat']
 
 asiaDestinations = ['Jaipur', 'Udaipur', 'Jodhpur', 'Bali',
@@ -33,9 +36,10 @@ def getAllLinks(soup, baseUrl):
                 url = i.get('href')
                 if '/luxury-hotels/' in url:
                     a_text = i.text
-                    if 'Mauritius' in a_text or 'Seychelles' in a_text:
-                        abs_url = urljoin(baseUrl, url)
-                        list.append(abs_url)
+                    for dest in africaDestinations:
+                        if dest in a_text:
+                            abs_url = urljoin(baseUrl, url)
+                            list.append(abs_url)
 
     elif 'middle-east' in baseUrl:
         for i in a_tags:
@@ -63,20 +67,23 @@ def getAllLinks(soup, baseUrl):
 
 
 # calls crawl function to scrape data for all links
-def start(soup, url, dataList):
+def start(soup, url):
     list = getAllLinks(soup, url)
+    print('Start fsaController with links: ', len(list))
+    dataList = []
     for i in list:
         info = crawl(i)
         if info:
             dataList.append(info)
 
+    return dataList
+
 # controller method
 def controller():
-    dataList = []
     for url in urls:
         soup = connect(url)
         if soup:
-            start(soup, url, dataList)
+            dataList = start(soup, url)
 
-    print('******Crawling complete******')
-    saveData(dataList)
+            print('******Crawling complete******')
+            saveData(dataList)

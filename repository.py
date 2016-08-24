@@ -2,7 +2,7 @@ import csv
 
 tempPath = 'temp.csv'
 filePath = 'fsa.csv'
-
+africaPath = 'africa.csv'
 
 header = ['name', 'location', 'address', 'location summary', 'desctiption', 'highlights', 'rooms',
         'travellers type', 'available activities', 'hotel amenities', 'awards', 'score', 'rating',
@@ -10,6 +10,10 @@ header = ['name', 'location', 'address', 'location summary', 'desctiption', 'hig
         'booking.com data', 'review numbers']
 
 def saveData(dataList):
+    print('Inside saveData')
+    filePath = africaPath
+    print('FilePath', filePath)
+
     file = open(filePath, 'w', newline = '')
     out = csv.writer(file)
     out.writerow(header)
@@ -18,6 +22,7 @@ def saveData(dataList):
             try:
                 list = getInfoAsList(i)
                 if list:
+                    print('Writing: ', list[0])
                     out.writerow(list)
             except:
                 print('Exception while saving for: ', i)
