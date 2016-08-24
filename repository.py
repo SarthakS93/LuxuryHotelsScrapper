@@ -4,8 +4,8 @@ tempPath = 'temp.csv'
 filePath = 'fsa.csv'
 africaPath = 'africa.csv'
 
-header = ['name', 'location', 'address', 'location summary', 'desctiption', 'highlights', 'rooms',
-        'travellers type', 'available activities', 'hotel amenities', 'awards', 'score', 'rating',
+header = ['name', 'location', 'address', 'location summary', 'destination', 'desctiption', 'highlights',
+        'rooms', 'travellers type', 'available activities', 'hotel amenities', 'awards', 'score', 'rating',
         'attractions', 'eateries', 'trust you review', 'tripadvisor review', 'agoda.com review',
         'booking.com data', 'review numbers']
 
@@ -125,11 +125,14 @@ def getInfoAsList(info):
         if 'attractions' in info and info['attractions']:
             attractions = info['attractions']
 
+        destination = ''
+        if 'destination' in info and info['description']:
+            destination = info['destination']
 
-        list = [name, location, address, location_summary, description, highlights,
-                rooms, travellers, availableActivities, hotelAmenities, awards,
-                score, rating, attractions, eateries, trustMapReview, tripAdvisor,
-                agoda, booking_data, numberReviews]
+
+        list = [name, location, address, location_summary, destination, description, highlights,
+                rooms, travellers, availableActivities, hotelAmenities, awards, score, rating,
+                attractions, eateries, trustMapReview, tripAdvisor, agoda, booking_data, numberReviews]
 
         return list
 

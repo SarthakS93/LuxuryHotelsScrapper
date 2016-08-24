@@ -18,7 +18,8 @@ africaURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination
 #urls = [asiaURL, middleEastURL, africaURL]
 urls = [africaURL]
 
-africaDestinations = ['Maasai Mara']
+africaDestinations = ['Cairo', 'Hurghada', 'Mauritius', 'Seychelles']
+#africaDestinations = ['Maasai Mara']
 
 middleEastDestinations = ['Baku', 'Dubai', 'Abu Dhabi', 'Doha', 'Muscat']
 
@@ -39,7 +40,7 @@ def getAllLinks(soup, baseUrl):
                     for dest in africaDestinations:
                         if dest in a_text:
                             abs_url = urljoin(baseUrl, url)
-                            list.append(abs_url)
+                            list.append((abs_url, dest))
 
     elif 'middle-east' in baseUrl:
         for i in a_tags:
@@ -50,7 +51,7 @@ def getAllLinks(soup, baseUrl):
                     for dest in middleEastDestinations:
                         if dest in a_text:
                             abs_url = urljoin(baseUrl, url)
-                            list.append(abs_url)
+                            list.append((abs_url, dest))
 
     elif 'asia' in baseUrl:
         for i in a_tags:
@@ -61,7 +62,7 @@ def getAllLinks(soup, baseUrl):
                     for dest in asiaDestinations:
                         if dest in a_text:
                             abs_url = urljoin(baseUrl, url)
-                            list.append(abs_url)
+                            list.append((abs_url, dest))
 
     return list
 
@@ -72,7 +73,8 @@ def start(soup, url):
     print('Start fsaController with links: ', len(list))
     dataList = []
     for i in list:
-        info = crawl(i)
+        info = crawl(i[0])
+        info['destination'] = i[1]
         if info:
             dataList.append(info)
 

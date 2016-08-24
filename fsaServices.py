@@ -39,7 +39,7 @@ def getLocation(soup, info):
         address_tag = soup.find(itemprop = 'address')
         info['address'] = address_tag.text
         location_summary_tag = soup.find(id = 'tab2')
-        info['location_summary'] = location_summary_tag.text
+        info['location_summary'] = location_summary_tag.text[36 : ]
     except:
         print('Exception in get location')
 
