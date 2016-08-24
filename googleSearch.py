@@ -59,6 +59,26 @@ def bookingSearch(query):
         return None
 
 
+def weatherSearch(query):
+    print('Inside weather search')
+    try:
+        soup = googleSearchConnect(query['search'])
+        if soup:
+            print(soup.title)
+            a_tags = soup.find_all('a')
+            for tag in a_tags:
+                href_text = tag.get('href')
+                if 'tripadvisor' in href_text and 'When.To.Go' in href_text:
+                    print(tag)
+                    link = getLinkFromText(href_text)
+                    return link
+
+        print('Nothing found in weather search')
+        return None
+    except:
+        print('Exception in weather search')
+        return None
+
 def getLinkFromText(href_text):
     link = ''
     print(href_text)

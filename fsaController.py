@@ -16,12 +16,12 @@ africaURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination
 
 
 #urls = [asiaURL, middleEastURL, africaURL]
-urls = [africaURL]
+urls = [middleEastURL]
 
 africaDestinations = ['Cairo', 'Hurghada', 'Mauritius', 'Seychelles']
 #africaDestinations = ['Maasai Mara']
 
-middleEastDestinations = ['Baku', 'Dubai', 'Abu Dhabi', 'Doha', 'Muscat']
+middleEastDestinations = ['Dubai', 'Abu Dhabi']
 
 asiaDestinations = ['Jaipur', 'Udaipur', 'Jodhpur', 'Bali',
 'Jakarta', 'Mataram', 'Macau', 'Langkawi', 'Male', 'Manila', 'Singapore', 'Colombo', 'Bangkok', 'Chiang Mai', 'Chiang Rai', 'Koh Samui', 'Hua Hin', 'Krabi', 'Pattaya', 'Phangan', 'Phuket', 'Galle', 'Tangelle',]
