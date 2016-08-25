@@ -24,7 +24,7 @@ def scrape(soup, info):
         startTripAdvisor(info)
         startAgoda(info)
         startBooking(info)
-        #save(info)
+        save(info)
         # remove call to showOutput when in production
         #showOutput()
     except:

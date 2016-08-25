@@ -21,14 +21,22 @@ def tripAdvisor(url, info):
                 list = getReviews(abs_url)
                 info['tripadvisor'] = list
 
-            getMiscInfo(soup, info)
+            attractions = getAttractions(soup, info)
+            info['attractions'] = attractions
+
+            eateries = getEateryInfo(soup, url)
+            info['eateries'] = eateries
+
+            #print(info)
+        else:
+            print('Nothing found in tripAdvisor')
 
     except:
         print('Exception in tripAdvisor')
 
 
-def getMiscInfo(soup, info):
-    print('Inside getMiscInfo')
+def getAttractions(soup, info):
+    print('Inside getAttractions')
     try:
         attractions = soup.find(class_ = 'attractions')
         list = []
@@ -40,22 +48,68 @@ def getMiscInfo(soup, info):
                     text = tag.text[1 : -1]
                     list.append(text)
 
-        info['attractions'] = list
+                return list
 
+        print('Nothing found in getAttractions')
+        return None
+
+
+    except:
+        print('Exception in getAttractions')
+        return None
+
+
+def getEateryInfo(soup, url):
+    print('Inside getEateryInfo')
+    try:
         eateries = soup.find(class_ = 'eateries')
-        list = []
         if eateries:
             divs = eateries.find_all(class_ = 'eatery')
             if divs:
+                list = []
                 for div in divs:
                     tag = div.find(class_ = 'nameWrapper')
-                    text = tag.text[1 : -1]
-                    list.append(text)
+                    link_tag = div.find('a')
+                    link = link_tag.get('href')
+                    abs_url = urljoin(url, link)
+                    data = getCuisine(abs_url)
+                    name = tag.text[1 : -1]
+                    newMap = {}
+                    newMap[name] = data
+                    list.append(newMap)
 
-        info['eateries'] = list
+            return list
+
+        print('Nothing found in getEateryInfo')
+        return None
+
     except:
-        print('Exception in getMiscInfo')
+        print('Exception in getEateryInfo')
+        return None
 
+
+def getCuisine(url):
+    print('Inside getCuisine')
+    try:
+        soup = connect(url)
+        container = soup.find(class_ = 'details_tab')
+        divs = container.find_all(class_ = 'row')
+        keys = {'Cuisine': 1, 'Meals': 1, 'Good for': 1, 'Restaurant features': 1}
+        data = {}
+        for div in divs:
+            title_tag = div.find(class_ = 'title')
+            if title_tag:
+                title = title_tag.text[1 : -1]
+                if title in keys:
+                    content_tag = div.find(class_ = 'content')
+                    content = content_tag.text[1 : -1]
+                    content = content.replace('\xa0', '')
+                    data[title] = content
+
+        return data
+    except:
+        print('Exception in getCuisine')
+        return None
 
 def scrape(div):
     print('Inside tripadvisor scrape')
