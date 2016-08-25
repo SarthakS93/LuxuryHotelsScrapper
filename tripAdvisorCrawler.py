@@ -18,8 +18,12 @@ def tripAdvisor(url, info):
                 link = link_tag.get('href')
                 abs_url = urljoin(url, link)
                 print('Getting reviews: ', abs_url)
-                list = getReviews(abs_url)
-                info['tripadvisor'] = list
+                list = []
+                try:
+                    getReviews(abs_url, list)
+                    info['tripadvisor'] = list
+                except:
+                    print('Exception while getting reviews')
 
             attractions = getAttractions(soup, info)
             info['attractions'] = attractions
@@ -182,19 +186,49 @@ def scrape(div):
         print('Exception in scrape')
 
 
-def getReviews(url):
+def getReviews(url, list):
+    print('Inside getReviews')
     try:
+        ctr = 0
+        getReviewsHelper(url, list, ctr)
+    except:
+        print('Exception in getReviews')
+
+
+def getReviewsHelper(url, list, ctr):
+    try:
+        if ctr == 10:
+            return
+
         soup = connect(url)
         if soup:
+            getReviewText(soup, list)
+
+            absUrl = None
+            pages = soup.find(class_ = 'pagination')
+            if pages:
+                link_tag = pages.find('a', class_ = 'next')
+                if link_tag:
+                    link = link_tag.get('href')
+                    abs_url = urljoin(url, link)
+
+            ctr = ctr + 1
+            if abs_url:
+                getReviewsHelper(abs_url, list, ctr)
+
+    except:
+        print('Exception in getReviewsHelper')
+
+def getReviewText(soup, list):
+    print('Inside getReviewText')
+    try:
+        if soup:
             divs = soup.find_all(class_ = 'innerBubble')
-            list = []
             for div in divs:
                 review = scrape(div)
                 list.append(review)
-
-            return list
     except:
-        print('Exception in getReviews')
+        print('Exception in getReviewText')
 
 
 def startTripAdvisor(info):

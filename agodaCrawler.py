@@ -85,7 +85,6 @@ def getUsefulInfo(soup):
         return None
 
 def processString(text):
-    print('Inside processString')
     try:
         text = text[ : -1]
         for i in range(len(text)):

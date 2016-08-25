@@ -21,10 +21,11 @@ urls = [middleEastURL]
 africaDestinations = ['Cairo', 'Hurghada', 'Mauritius', 'Seychelles']
 #africaDestinations = ['Maasai Mara']
 
-middleEastDestinations = ['Dubai', 'Abu Dhabi']
+middleEastDestinations = ['Dubai', 'Abu Dhabi', 'Muscat']
 
-asiaDestinations = ['Jaipur', 'Udaipur', 'Jodhpur', 'Bali',
-'Jakarta', 'Mataram', 'Macau', 'Langkawi', 'Male', 'Manila', 'Singapore', 'Colombo', 'Bangkok', 'Chiang Mai', 'Chiang Rai', 'Koh Samui', 'Hua Hin', 'Krabi', 'Pattaya', 'Phangan', 'Phuket', 'Galle', 'Tangelle',]
+asiaDestinations = ['Jaipur', 'Udaipur', 'Jodhpur', 'Bali', 'Hong Kong', 'Jakarta', 'Mataram', 'Macau',
+        'Male',  'Singapore', 'Colombo', 'Bangkok', 'Chiang Mai', 'Chiang Rai', 'Koh Samui', 'Hua Hin',
+        'Krabi', 'Pattaya', 'Phangan', 'Phuket', 'Galle', 'Tangelle',]
 
 # gets all the links of luxury hotels on a particular page
 def getAllLinks(soup, baseUrl):
@@ -73,10 +74,13 @@ def start(soup, url):
     print('Start fsaController with links: ', len(list))
     dataList = []
     for i in list:
-        info = crawl(i[0])
-        info['destination'] = i[1]
-        if info:
-            dataList.append(info)
+        try:
+            info = crawl(i[0])
+            if info:
+                info['destination'] = i[1]
+                dataList.append(info)
+        except:
+            print('Exception in start')
 
     return dataList
 
