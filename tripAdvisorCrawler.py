@@ -27,12 +27,55 @@ def tripAdvisor(url, info):
             eateries = getEateryInfo(soup, url)
             info['eateries'] = eateries
 
+            additionalInfo = getAdditionalInfo(soup)
+            info['additionalInfo'] = additionalInfo
+
             #print(info)
-        else:
-            print('Nothing found in tripAdvisor')
 
     except:
         print('Exception in tripAdvisor')
+
+
+def getAdditionalInfo(soup):
+    print('Inside getAdditionalInfo')
+    try:
+        tab = soup.find(id = 'AMENITIES_TAB')
+        if tab:
+            container = tab.find(class_ = 'content')
+            if container:
+                price_tag = container.find(property = 'priceRange')
+                price = ''
+                if price_tag:
+                    price = price_tag.text[1 : -1]
+                    price = price.replace('\xa0', '')
+
+                rooms_tag = container.find(class_ = 'tabs_num_rooms')
+                rooms = ''
+                if rooms_tag:
+                    rooms = rooms_tag.text
+                    if rooms[0] == ' ':
+                        rooms = rooms[1 : ]
+
+                hotelClass_tag = container.find(class_ = 'stars')
+                hotelClass = ''
+                if hotelClass_tag:
+                    hotelClass = hotelClass_tag.text[1 : ]
+
+                additionalInfo = {}
+                additionalInfo['price'] = price
+                additionalInfo['stars'] = hotelClass
+                additionalInfo['rooms'] = rooms
+
+                return additionalInfo
+
+
+        print('Nothing found in getAdditionalInfo')
+        return None
+
+    except:
+        print('Exception in getAdditionalInfo')
+        return None
+
 
 
 def getAttractions(soup, info):

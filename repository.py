@@ -6,7 +6,7 @@ africaPath = 'africa.csv'
 middleEastPath = 'middleEast.csv'
 header = ['name', 'location', 'address', 'location summary', 'destination', 'desctiption', 'highlights',
         'rooms', 'travellers type', 'available activities', 'hotel amenities', 'awards', 'score', 'rating',
-        'attractions', 'eateries', 'trust you review', 'tripadvisor review', 'agoda.com review',
+        'additional info', 'attractions', 'eateries', 'trust you review', 'tripadvisor review', 'agoda.com review',
         'booking.com data', 'review numbers']
 
 def saveData(dataList):
@@ -129,9 +129,12 @@ def getInfoAsList(info):
         if 'destination' in info and info['description']:
             destination = info['destination']
 
+        additionalInfo = ''
+        if 'additionalInfo' in info and info['additionalInfo']:
+            additionalInfo = info['additionalInfo']
 
-        list = [name, location, address, location_summary, destination, description, highlights,
-                rooms, travellers, availableActivities, hotelAmenities, awards, score, rating,
+        list = [name, location, address, location_summary, destination, description, highlights, rooms,
+                travellers, availableActivities, hotelAmenities, awards, score, rating, additionalInfo,
                 attractions, eateries, trustMapReview, tripAdvisor, agoda, booking_data, numberReviews]
 
         return list
