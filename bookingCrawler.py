@@ -11,14 +11,31 @@ def booking(url, info):
             rooms = getRoomTypes(soup)
             points = getPoints(soup)
             score = getBookingScore(soup)
+            description = getDescription(soup)
 
             info['rooms'] = rooms
-            bookingMap = {'points' : points, 'score' : score}
+            bookingMap = {'points' : points, 'score' : score, 'description' : description}
 
             info['booking_data'] = bookingMap
 
     except:
         print('Exception in tripAdvisor')
+
+
+def getDescription(soup):
+    print('Inside getDescription')
+    try:
+        tag = soup.find(id = 'summary')
+        if tag:
+            text = tag.text
+            text = text.replace('\n', '')
+            return text
+
+        print('Nothing found in getDescription')
+        return ''
+    except:
+        print('Exception in getDescription')
+        return ''
 
 
 def getBookingScore(soup):
