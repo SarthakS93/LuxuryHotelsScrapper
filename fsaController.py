@@ -16,7 +16,7 @@ africaURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination
 
 
 #urls = [asiaURL, middleEastURL, africaURL]
-urls = [middleEastURL]
+urls = [africaURL]
 
 africaDestinations = ['Cairo', 'Hurghada', 'Mauritius', 'Seychelles']
 #africaDestinations = ['Maasai Mara']

@@ -34,10 +34,123 @@ def tripAdvisor(url, info):
             additionalInfo = getAdditionalInfo(soup)
             info['additionalInfo'] = additionalInfo
 
+            misc = getMiscInfo(soup)
+            info['misc'] = misc
+
             #print(info)
 
     except:
         print('Exception in tripAdvisor')
+
+def getMiscInfo(soup):
+    print('Inside getMiscInfo')
+    try:
+        if soup:
+            misc = {}
+
+            traveller_type = getTravellerType(soup)
+            misc['traveller type'] = traveller_type
+
+            rating = getRating(soup)
+            misc['rating'] = rating
+
+            time = getTime(soup)
+            misc['time'] = time
+
+            return misc
+
+        print('Nothing found in miscinfo')
+        return None
+
+    except:
+        print('Exception in getMiscInfo')
+        return None
+
+
+def getTime(soup):
+    print('Inside getTime')
+    try:
+        if soup:
+            container = soup.find(id = 'filterControls')
+            if container:
+                div = container.find(class_ = 'season')
+                if div:
+                    items = div.find_all('li')
+                    if items:
+                        list = []
+                        for i in items:
+                            text = i.text
+                            text = text.replace('\n', '')
+                            list.append(text)
+
+                        return list
+
+        print('Nothing found in getTime')
+        return None
+    except:
+        print('Exception in getTime')
+        return None
+
+
+def getTravellerType(soup):
+    print('Inside getTravellerType')
+    try:
+        container = soup.find(id = 'filterControls')
+        if container:
+            div = container.find(class_ = 'segment')
+            if div:
+                labels = div.find_all('li')
+                traveller_type = []
+                for label in labels:
+                    text = label.text[1 : -1]
+                    traveller_type.append(text)
+
+                return traveller_type
+
+        print('Nothing found in getTravellerType')
+        return None
+    except:
+        print('Exception in getTravellerType')
+        return None
+
+def getRating(soup):
+    print('Inside getRating')
+    try:
+        container = soup.find(id = 'ratingFilter')
+        if container:
+            items = container.find_all('li')
+            if items:
+                map = {}
+                for item in items:
+                    text = item.text
+                    data = processString(text)
+                    if data:
+                        map[data[0]] = data[1]
+
+                return map
+
+        print('Nothing found in getRating')
+        return None
+
+    except:
+        print('Exception in getRating')
+        return None
+
+
+
+def processString(text):
+    try:
+        text = text.replace('\n', ' ')
+        list = text.split(' ')
+        temp = []
+        for i in list:
+            if i != '':
+                temp.append(i)
+        data = (temp[0], temp[1])
+        print(data)
+        return data
+    except:
+        return None
 
 
 def getAdditionalInfo(soup):

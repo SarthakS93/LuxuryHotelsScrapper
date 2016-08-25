@@ -6,12 +6,12 @@ africaPath = 'africa.csv'
 middleEastPath = 'middleEast.csv'
 header = ['name', 'location', 'address', 'location summary', 'destination', 'desctiption', 'highlights',
         'rooms', 'travellers type', 'available activities', 'hotel amenities', 'awards', 'score', 'rating',
-        'additional info', 'attractions', 'eateries', 'trust you review', 'tripadvisor review', 'agoda.com review',
-        'booking.com data', 'review numbers']
+        'additional info', 'attractions', 'eateries', 'trust you review', 'agoda.com review', 'booking.com data',
+        'misc', 'review numbers', 'reviews1', 'reviews2', 'reviews3', 'reviews4', 'reviews6', 'reviews7', 'reviews8']
 
 def saveData(dataList):
     print('Inside saveData')
-    filePath = middleEastPath
+    filePath = africaPath
     print('FilePath', filePath)
 
     file = open(filePath, 'w', newline = '')
@@ -41,6 +41,18 @@ def save(info):
         out.writerow(list)
     file.close()
 
+
+def helper(big, small, n, ctr):
+    print('Inside helper')
+    try:
+        for i in range(n):
+            print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&0    ', ctr)
+            small.append(big[ctr])
+            ctr = ctr + 1
+
+        return ctr
+    except:
+        print('Exception in helper')
 
 def getInfoAsList(info):
     try:
@@ -102,8 +114,27 @@ def getInfoAsList(info):
 
 
         tripAdvisor = []
+        list1 = []
+        list2 = []
+        list3 = []
+        list4 = []
+        list5 = []
+        list6 = []
+        list7 = []
+        list8 = []
         if 'tripadvisor' in info and info['tripadvisor']:
             tripAdvisor = info['tripadvisor']
+            length = len(tripAdvisor)
+            n = int(length/8)
+            ctr = 0
+            l = [list1, list2, list3, list4, list5, list6, list7]
+            for i in l:
+                ctr = helper(tripAdvisor, i, n, ctr)
+
+            for i in range(ctr, length):
+                print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', i)
+                list8.append(tripAdvisor[i])
+
 
         agoda = None
         if 'agoda' in info and info['agoda']:
@@ -133,9 +164,14 @@ def getInfoAsList(info):
         if 'additionalInfo' in info and info['additionalInfo']:
             additionalInfo = info['additionalInfo']
 
+        misc = None
+        if 'misc' in info and info['misc']:
+            misc = info['misc']
+
         list = [name, location, address, location_summary, destination, description, highlights, rooms,
                 travellers, availableActivities, hotelAmenities, awards, score, rating, additionalInfo,
-                attractions, eateries, trustMapReview, tripAdvisor, agoda, booking_data, numberReviews]
+                attractions, eateries, trustMapReview, agoda, booking_data, misc, numberReviews,
+                list1, list2, list3, list4, list5, list6, list7, list8]
 
         return list
 
