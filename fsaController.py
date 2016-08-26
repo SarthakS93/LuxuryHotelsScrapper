@@ -31,6 +31,7 @@ thailand = ['Bangkok', 'Chiang Rai', 'Chiang Mai', 'Koh Samui', 'Hua Hin', 'Phuk
 
 southAsia = ['Singapore', 'Male', 'Bali', 'Macau', 'Hong Kong']
 
+indianSub = ['Jaipur', 'Udaipur', 'Jodhpur', 'Galle', 'Colombo', 'Tangelle', 'Hanoi', 'Ho Chi Minh City', 'Hue', 'Nha Trang', 'Phan Thiet', 'Mumbai']
 # gets all the links of luxury hotels on a particular page
 def getAllLinks(soup, baseUrl):
     a_tags = soup.find_all('a')
@@ -64,7 +65,7 @@ def getAllLinks(soup, baseUrl):
                 url = i.get('href')
                 if '/luxury-hotels/' in url:
                     a_text = i.text
-                    for dest in southAsia:
+                    for dest in indianSub:
                         if dest in a_text:
                             abs_url = urljoin(baseUrl, url)
                             list.append((abs_url, dest))

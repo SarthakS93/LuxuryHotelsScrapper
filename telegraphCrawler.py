@@ -39,7 +39,6 @@ def crawl(url):
         if soup:
             info = {}
             scrape(soup, info)
-            print(info)
             return info
         else:
             print('Nothing found in crawl')

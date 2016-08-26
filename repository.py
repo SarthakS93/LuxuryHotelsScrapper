@@ -6,7 +6,7 @@ africaPath = 'africa.csv'
 thailandPath = 'thailand.csv'
 middleEastPath = 'middleEast.csv'
 southAsiaPath = 'southAsia.csv'
-indiaPath = 'india.csv'
+indiaPath = 'indiaSub.csv'
 
 header = ['name', 'location', 'address', 'location summary', 'destination', 'desctiption', 'highlights',
         'rooms', 'travellers type', 'available activities', 'hotel amenities', 'awards', 'score', 'rating',
@@ -15,7 +15,7 @@ header = ['name', 'location', 'address', 'location summary', 'destination', 'des
 
 def saveData(dataList):
     print('Inside saveData')
-    filePath = southAsiaPath
+    filePath = indiaPath
     print('FilePath', filePath)
 
     file = open(filePath, 'w', newline = '')

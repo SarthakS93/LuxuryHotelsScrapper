@@ -10,9 +10,9 @@ from repository import saveTelegraphDataList
 
 baseUrl = 'http://www.telegraph.co.uk/travel/destinations/'
 
-#destinations = ['India', 'Maldives', 'Seychelles', 'Mauritius', 'Hong Kong', 'Macau', 'Thailand', 'Indonesia', 'Vietnam', 'Singapore', 'Oman', 'United Arab Erimates', 'Sri Lanka', 'United Arab Emirates']
+destinations = ['India', 'Maldives', 'Seychelles', 'Mauritius', 'Hong Kong', 'Macau', 'Thailand', 'Indonesia', 'Vietnam', 'Singapore', 'Oman', 'United Arab Erimates']
 
-destinations = ['Mauritius']
+#destinations = ['Mauritius', 'Seychelles']
 
 dataList = []
 
@@ -73,16 +73,15 @@ def telegraphController(url):
                 if pagination_tags:
                     for i in range(1, len(pagination_tags)):
                         a_tag = pagination_tags[i].find('a')
-                        if a:
+                        if a_tag:
                             abs_url = urljoin(baseUrl, a_tag.get('href'))
                             newSoup = connect(abs_url)
                             if newSoup:
                                 findHotelLinks(newSoup, hotel_links)
 
-               for i in hotel_links:
+                for i in hotel_links:
                     info = crawl(i)
                     print('&&&&&&&&&&&&&&&&&')
-                    print(info)
                     if 'name' in info and info['name']:
                         dataList.append(info)
 
@@ -97,6 +96,7 @@ def start():
         soup = connect(baseUrl)
         if soup:
             destination_links = getDestinationLinks(soup)
+            print(destination_links)
             for url in destination_links:
                 print('Destination link is: ', url)
                 try:
@@ -105,7 +105,8 @@ def start():
                     print('Exception in start Telegraph loop')
 
             print('*****Crawling Complete*****')
-            #saveTelegraphDataList(dataList)
+            saveTelegraphDataList(dataList)
+            print(len(dataList))
 
         else:
             print('Nothing found in start Telegraph')
