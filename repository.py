@@ -3,6 +3,7 @@ import csv
 tempPath = 'temp.csv'
 filePath = 'fsa.csv'
 africaPath = 'africa.csv'
+thailandPath = 'thailand.csv'
 middleEastPath = 'middleEast.csv'
 header = ['name', 'location', 'address', 'location summary', 'destination', 'desctiption', 'highlights',
         'rooms', 'travellers type', 'available activities', 'hotel amenities', 'awards', 'score', 'rating',
@@ -11,7 +12,7 @@ header = ['name', 'location', 'address', 'location summary', 'destination', 'des
 
 def saveData(dataList):
     print('Inside saveData')
-    filePath = africaPath
+    filePath = thailandPath
     print('FilePath', filePath)
 
     file = open(filePath, 'w', newline = '')

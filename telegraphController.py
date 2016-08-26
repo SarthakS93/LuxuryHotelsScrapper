@@ -41,33 +41,44 @@ def findHotelLinks(soup, hotel_links):
 
 def telegraphController(url):
     print('Inside controller')
-    link = getHotelsPageLink(url)
-    if link:
-        soup = connect(link)
-        hotel_links = []
-        findHotelLinks(soup, hotel_links)
-        pagination_tags = soup.find_all(class_ = 'product-pagination__items')
-        if pagination_tags:
-            for i in range(1, len(pagination_tags)):
-                abs_url = urljoin(baseUrl, i.get('href'))
-                newSoup = connect(abs_url)
-                findHotelLinks(newSoup, hotel_links)
+    try:
+        link = getHotelsPageLink(url)
+        if link:
+            soup = connect(link)
+            if soup:
+                hotel_links = []
+                findHotelLinks(soup, hotel_links)
+                pagination_tags = soup.find_all(class_ = 'product-pagination__items')
+                if pagination_tags:
+                    for i in range(1, len(pagination_tags)):
+                        abs_url = urljoin(baseUrl, i.get('href'))
+                        newSoup = connect(abs_url)
+                        findHotelLinks(newSoup, hotel_links)
 
-        for i in hotel_links:
-            crawl(i)
+                for i in hotel_links:
+                    crawl(i)
 
-
+    except:
+        print('Exception in telegraphController')
 
 
 # calls crawl function to scrape data for all links
 def start():
     print("Starting to crawl Telegraph.co.uk")
-    soup = connect(baseUrl)
-    destination_links = getDestinationLinks(soup)
-    for url in destination_links:
-        print('Destination link is: ', url)
-        telegraphController(url)
-
+    try:
+        soup = connect(baseUrl)
+        if soup:
+            destination_links = getDestinationLinks(soup)
+            for url in destination_links:
+                print('Destination link is: ', url)
+                try:
+                    telegraphController(url)
+                except:
+                    print('Exception in start Telegraph loop')
+        else:
+            print('Nothing found in start Telegraph')
+    except:
+        print('Exception in start Telegraph')
 
 def getHotelsPageLink(url):
     soup = connect(url)

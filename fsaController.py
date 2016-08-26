@@ -16,16 +16,18 @@ africaURL = 'http://www.fivestaralliance.com/luxury-hotels-worldwide/destination
 
 
 #urls = [asiaURL, middleEastURL, africaURL]
-urls = [africaURL]
+urls = [asiaURL]
 
 africaDestinations = ['Cairo', 'Hurghada', 'Mauritius', 'Seychelles']
 #africaDestinations = ['Maasai Mara']
 
 middleEastDestinations = ['Dubai', 'Abu Dhabi', 'Muscat']
 
-asiaDestinations = ['Jaipur', 'Udaipur', 'Jodhpur', 'Bali', 'Hong Kong', 'Jakarta', 'Mataram', 'Macau',
+asiaDestinations = ['Jaipur', 'Udaipur', 'Jodhpur', 'Bali', 'Hong Kong', 'Mataram', 'Macau',
         'Male',  'Singapore', 'Colombo', 'Bangkok', 'Chiang Mai', 'Chiang Rai', 'Koh Samui', 'Hua Hin',
         'Krabi', 'Pattaya', 'Phangan', 'Phuket', 'Galle', 'Tangelle',]
+
+thailand = ['Bangkok', 'Chiang Rai', 'Chiang Mai', 'Koh Samui', 'Hua Hin', 'Phuket', 'Phangan', 'Pattaya', 'Krabi']
 
 # gets all the links of luxury hotels on a particular page
 def getAllLinks(soup, baseUrl):
@@ -60,7 +62,7 @@ def getAllLinks(soup, baseUrl):
                 url = i.get('href')
                 if '/luxury-hotels/' in url:
                     a_text = i.text
-                    for dest in asiaDestinations:
+                    for dest in thailand:
                         if dest in a_text:
                             abs_url = urljoin(baseUrl, url)
                             list.append((abs_url, dest))
