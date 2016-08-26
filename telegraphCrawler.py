@@ -3,38 +3,50 @@ This script is re
 '''
 
 from connection import connect
-from telegraphService import getBasicInfo, getReviews
+from telegraphService import getBasicInfo, getReviews, getFacilities
 
-url = 'http://www.telegraph.co.uk/travel/destinations/asia/thailand/natai-beach/hotels/iniala-beach-house-hotel/'
-
-info = {}
-
-list = []
+url = 'http://www.telegraph.co.uk/travel/destinations/asia/thailand/bangkok/hotels/the-siam-hotel/'
 
 # call service functions to get particular data
-def scrape(soup):
-    getBasicInfo(soup, info)
-    getReviews(soup, info)
-    # remove call to showOutput when in production
-    showOutput()
+def scrape(soup, info):
+    print('Inside scrape')
+    try:
+        if soup:
+            getBasicInfo(soup, info)
+            data = getReviews(soup, info)
+            if data:
+                info['reviews'] = data
+            else:
+                info['reviews'] = None
 
+            facilities = getFacilities(soup)
+            if facilities:
+                info['facilities'] = facilities
+            else:
+                info['facilities'] = None
 
-# show output, optional debugging function
-def showOutput():
-    print("**Output is as follows**")
-    print(info)
-    list.append(info['name'])
-    print('***************************************************************************************', len(list), '$$$$$$$$$$$$$$', list[len(list) - 1])
+        else:
+            print('Nothing found in scrape')
+    except:
+        print('Exception in scrape')
+
 
 # start to crawl a page
 def crawl(url):
     print("Crawling this page: ", url)
-    soup = connect(url)
-    if soup == None:
-        print("Exception")
-        return
-    else:
-        scrape(soup)
+    try:
+        soup = connect(url)
+        if soup:
+            info = {}
+            scrape(soup, info)
+            print(info)
+            return info
+        else:
+            print('Nothing found in crawl')
+            return None
+
+    except:
+        print('Exception in crawl')
 
 
 # code to enable script to run independently

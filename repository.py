@@ -5,6 +5,9 @@ filePath = 'fsa.csv'
 africaPath = 'africa.csv'
 thailandPath = 'thailand.csv'
 middleEastPath = 'middleEast.csv'
+southAsiaPath = 'southAsia.csv'
+indiaPath = 'india.csv'
+
 header = ['name', 'location', 'address', 'location summary', 'destination', 'desctiption', 'highlights',
         'rooms', 'travellers type', 'available activities', 'hotel amenities', 'awards', 'score', 'rating',
         'additional info', 'attractions', 'eateries', 'trust you review', 'agoda.com review', 'booking.com data',
@@ -12,7 +15,7 @@ header = ['name', 'location', 'address', 'location summary', 'destination', 'des
 
 def saveData(dataList):
     print('Inside saveData')
-    filePath = thailandPath
+    filePath = southAsiaPath
     print('FilePath', filePath)
 
     file = open(filePath, 'w', newline = '')
@@ -31,6 +34,66 @@ def saveData(dataList):
         print('Exception while saving')
     print('Data written to: ', filePath)
     file.close()
+
+
+def saveTelegraphDataList(dataList):
+    print('Inside saveTelegraphDataList')
+    filePath = 'telegraph.csv'
+    try:
+        file = open(filePath, 'w', newline = '')
+        out = csv.writer(file)
+        telegraphHeaders = ['name', 'address', 'rating', 'description', 'facilities', 'reviews']
+        out.writerow(telegraphHeaders)
+        for i in dataList:
+            try:
+                list = getTelegraphInfoAsList(i)
+                if list:
+                    print('Writing: ', list[0])
+                    out.writerow(list)
+            except:
+                print('Exception while saving for: ', i)
+    except:
+        print('Exception while saving')
+
+    print('Data written to: ', filePath)
+    file.close()
+
+
+def getTelegraphInfoAsList(info):
+    print('Inside getTelegraphInfoAsList')
+    try:
+
+        name = ''
+        if 'name' in info and info['name']:
+            name = info['name']
+
+        address = ''
+        if 'address' in info and info['address']:
+            address = info['address']
+
+        rating = ''
+        if 'rating' in info and info['rating']:
+            rating = info['rating']
+
+        description = ''
+        if 'description' in info and info['description']:
+            description = info['description']
+
+        facilities = []
+        if 'facilities' in info and info['facilities']:
+            facilities = info['facilities']
+
+        reviews = []
+        if 'reviews' in info and info['reviews']:
+            reviews = info['reviews']
+
+        list = [name, address, rating, description, facilities, reviews]
+
+        return list
+
+    except:
+        print('Exception in getTelegraphInfoAsList')
+        return None
 
 
 def save(info):
