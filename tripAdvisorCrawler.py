@@ -344,6 +344,29 @@ def getReviewText(soup, list):
         print('Exception in getReviewText')
 
 
+def startTripAdvisorSolo(info, input_data):
+    try:
+        queryDictionary = {'name' : input_data['name'], 'location' : input_data['location']}
+        searchString = 'tripadvisor' + ' ' + input_data['name'] + ' ' + input_data['location']
+        queryDictionary['search'] = searchString
+        url = None
+        i = 0
+        while(i < 3):
+            if url == None:
+                url = tripAdvisorSearch(queryDictionary)
+                i = i + 1
+            else:
+                break
+
+
+        if url:
+            tripAdvisor(url, info)
+        else:
+            print('Tripadvisor could not be found for: ', info['search'])
+    except:
+        print('Exception in startTripAdvisor')
+
+
 def startTripAdvisor(info):
     try:
         queryDictionary = {'name' : info['name'], 'location' : info['location']}

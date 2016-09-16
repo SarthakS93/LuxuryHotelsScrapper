@@ -9,8 +9,8 @@ from agodaCrawler import startAgoda
 from bookingCrawler import startBooking
 from repository import save
 
-url = 'http://www.fivestaralliance.com/luxury-hotels/bangkok/banyan-tree-bangkok'
-
+#url = 'http://www.fivestaralliance.com/luxury-hotels/sir-bani-yas-island/anantara-al-yamm-villa-resort'
+url='http://www.fivestaralliance.com/4star-hotels/bangalore/vivanta-taj-whitefield-bangalore'
 
 # call service functions to get particular data
 def scrape(soup, info):
@@ -24,7 +24,7 @@ def scrape(soup, info):
         startTripAdvisor(info)
         startAgoda(info)
         startBooking(info)
-        #save(info)
+        save(info)
         # remove call to showOutput when in production
         #showOutput()
     except:

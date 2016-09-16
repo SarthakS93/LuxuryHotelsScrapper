@@ -101,6 +101,29 @@ def showOutput(info):
     print('*********output************')
     print(info)
 
+def startAgodaSolo(info, input_data):
+    try:
+        queryDictionary = {'name' : input_data['name'], 'location' : input_data['location']}
+        searchString = 'agoda.com' + ' ' + input_data['name'] + ' ' + input_data['location']
+        queryDictionary['search'] = searchString
+        url = None
+        i = 0
+        while(i < 3):
+            if url == None:
+                url = agodaSearch(queryDictionary)
+                i = i + 1
+            else:
+                break
+
+
+        if url:
+            agoda(url, info)
+        else:
+            print('Agoda.com could not be found for: ', info['search'])
+    except:
+        print('Exception in startAgoda')
+
+
 def startAgoda(info):
     try:
         queryDictionary = {'name' : info['name'], 'location' : info['location']}

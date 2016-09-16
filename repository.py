@@ -59,6 +59,57 @@ def saveTelegraphDataList(dataList):
     file.close()
 
 
+
+def saveWeatherData(dataList):
+    print('Inside saveWeatherData')
+    try:
+        filePath = 'weather.csv'
+        file = open(filePath, 'w', newline = '')
+        out = csv.writer(file)
+        weatherHeader = ['Destination', 'description', 'temperature', 'reviews']
+
+        out.writerow(weatherHeader)
+
+        for i in dataList:
+            try:
+                data = getWeatherDataInList(i)
+                if data:
+                    out.writerow(data)
+            except:
+                print('Exception in: ', i)
+
+    except:
+        print('Exception while saving')
+
+    print('Data written to: ', filePath)
+    file.close()
+
+
+def getWeatherDataInList(info):
+    print('Inside getWeatherDataInList')
+    try:
+        destination = ''
+        if 'destination' in info and info['destination']:
+            destination = info['destination']
+
+        temperature = None
+        if 'facts' in info  and info['facts']:
+            temperature = info['facts']
+
+        description = ''
+        if 'description' in info and info['description']:
+            description = info['description']
+
+        reviews = []
+        if 'reviews' in info and info['reviews']:
+            reviews = info['reviews']
+
+        list = [destination, description, temperature, reviews]
+        return list
+    except:
+        print('Exception in getWeatherDataInList')
+        return None
+
 def getTelegraphInfoAsList(info):
     print('Inside getTelegraphInfoAsList')
     try:
@@ -97,12 +148,18 @@ def getTelegraphInfoAsList(info):
 
 
 def save(info):
-    file = open(tempPath, 'w', newline = '')
-    out = csv.writer(file)
-    list = getInfoAsList(info)
-    if list:
-        out.writerow(header)
-        out.writerow(list)
+    print('Inside save')
+    try:
+        file = open('', 'a', newline = '')
+        out = csv.writer(file)
+        list = getInfoAsList(info)
+        if list:
+            out.writerow(header)
+            out.writerow(list)
+
+    except:
+        print('Exception in save')
+
     file.close()
 
 
@@ -231,6 +288,10 @@ def getInfoAsList(info):
         misc = None
         if 'misc' in info and info['misc']:
             misc = info['misc']
+
+
+        #destination = 'Sri Lanka'
+        #name = 'Ceylon Tea Trails'
 
         list = [name, location, address, location_summary, destination, description, highlights, rooms,
                 travellers, availableActivities, hotelAmenities, awards, score, rating, additionalInfo,

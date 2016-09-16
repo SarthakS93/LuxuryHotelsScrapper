@@ -18,8 +18,32 @@ def booking(url, info):
 
             info['booking_data'] = bookingMap
 
+            # remove call when running script for fsa
+            getBasicInfo(soup, info)
+
     except:
         print('Exception in tripAdvisor')
+
+
+
+def getBasicInfo(soup, info):
+    print('Getting Basic info')
+    try:
+        name_tag = soup.find(id = 'hp_hotel_name')
+        name = ''
+        if name_tag:
+            name = name_tag.text[1 : -1]
+
+        address_tag = soup.find(itemprop = 'address')
+        address = ''
+        if address_tag:
+            address = address_tag.text[1 : -1]
+
+        info['name'] = name
+        info['address'] = address
+
+    except:
+        print('Exception in getBasicInfo')
 
 
 def getDescription(soup):
@@ -106,6 +130,28 @@ def getPoints(soup):
     except:
         print('Exception in getPoints')
         return None
+
+def startBookingSolo(info, input_data):
+    try:
+        queryDictionary = {'name' : input_data['name'], 'location' : input_data['location']}
+        searchString = 'booking.com' + ' ' + input_data['name'] + ' ' + input_data['location']
+        queryDictionary['search'] = searchString
+        url = None
+        i = 0
+        while(i < 3):
+            if url == None:
+                url = bookingSearch(queryDictionary)
+                i = i + 1
+            else:
+                break
+
+
+        if url:
+            booking(url, info)
+        else:
+            print('Booking.com could not be found for: ', info['search'])
+    except:
+        print('Exception in startBooking')
 
 def startBooking(info):
     try:
