@@ -305,3 +305,15 @@ def getInfoAsList(info):
         return None
 
 
+def makeDirectory(name, destination):
+    print('Inside makeDirectory')
+    try:
+        dir_name = 'pics/' + name + ' - ' + destination
+        os.makedirs(dirname)
+        return dirname
+    except:
+        print('Exception inside makeDirectory')
+        return None
+
+def saveImage(filename, name, destination, re):
+    file = open(filename, 'wb')

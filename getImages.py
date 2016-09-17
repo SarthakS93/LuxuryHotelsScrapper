@@ -26,7 +26,7 @@ def getAllBookingImages(url, name, destination):
             filename = name + str(ctr) + '.' + i.split('.')[-1]
             ctr = ctr + 1
 
-            saveImage()
+            saveImage(filename, name, destination, re)
 
 
 
