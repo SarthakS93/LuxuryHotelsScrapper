@@ -1,4 +1,4 @@
-from connection import connect
+from connection import connect, getRequest
 from repository import saveImages, makeDirectory
 
 def getAllBookingImages(url, name, destination):
@@ -28,13 +28,18 @@ def getAllBookingImages(url, name, destination):
             for i in img_paths:
                 try:
                     re = getRequest(i)
+
+                    filename = name + str(ctr) + '.' + i.split('.')[-1]
+                    ctr = ctr + 1
+
+                    saveImage(filename, dir_name, re)
                 except:
                     continue
 
-            filename = name + str(ctr) + '.' + i.split('.')[-1]
-            ctr = ctr + 1
 
-            saveImage(filename, dir_name, re)
-
+if __name__ == '__main__':
+    url = 'http://www.booking.com/hotel/th/banyan-tree-bangkok.en-gb.html'
+    name = 'Banyan Tree'
+    destination = 'Bangkok, Thailand'
 
 

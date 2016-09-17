@@ -42,3 +42,17 @@ def googleSearchConnect(query):
         print('Exception while connecting')
         return None
 
+
+def getRequest(url):
+    print('Inside getRequest')
+    time.sleep(0.3)
+    try:
+        r = requests.get(url, timeout = (10, 20))
+        if r.status_code != 200:
+            print('Exception')
+            return None
+        else:
+            return r
+    except:
+        print('Exception while connecting')
+        return None
