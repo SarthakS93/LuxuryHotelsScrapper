@@ -41,5 +41,7 @@ if __name__ == '__main__':
     url = 'http://www.booking.com/hotel/th/banyan-tree-bangkok.en-gb.html'
     name = 'Banyan Tree'
     destination = 'Bangkok, Thailand'
-
+    print('Started getAllBookingImages')
+    getAllBookingImages(url, name, destination)
+    print('Done')
 
