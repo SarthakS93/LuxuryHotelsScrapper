@@ -1,7 +1,8 @@
 from connection import connect, getRequest
-from repository import saveImages, makeDirectory
+from repository import saveImage, makeDirectory
 
 def getAllBookingImages(url, name, destination):
+    print('Inside getAllBookingImages')
     soup = connect(url)
     if soup:
         div = soup.find(id = 'photo_wrapper')
@@ -13,14 +14,16 @@ def getAllBookingImages(url, name, destination):
                     link = i.get('src')
                     if not link:
                         link = i.get('data-lazy')
+
+                    img_paths.add(link)
                 except:
                     continue
 
-            if not len(img_paths) > 0:
+            if len(img_paths) == 0:
                 return
 
             dir_name = makeDirectory(name, destination)
-
+            print('Directory name is: ', dir_name)
             if not dir_name:
                 return
 

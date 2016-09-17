@@ -1,4 +1,4 @@
-import csv
+import csv, os
 
 tempPath = 'temp.csv'
 filePath = 'fsa.csv'
@@ -308,9 +308,10 @@ def getInfoAsList(info):
 def makeDirectory(name, destination):
     print('Inside makeDirectory')
     try:
-        dir_name = 'pics/' + name + ' - ' + destination
-        os.makedirs(dirname)
-        return dirname
+        dir_name = 'pics/' + name + '_' + destination
+        print(dir_name)
+        os.makedirs(dir_name)
+        return dir_name
     except:
         print('Exception inside makeDirectory')
         return None
@@ -318,7 +319,7 @@ def makeDirectory(name, destination):
 def saveImage(filename, dir_name, re):
     print('Inside saveImage')
     try:
-        file = open(filename, 'wb')
+        file = open(dir_name + '/' + filename, 'wb')
         file.write(re.content)
         file.close()
         print('saved - ' + filename)
