@@ -1,5 +1,5 @@
 from connection import connect
-from repository import saveImages
+from repository import saveImages, makeDirectory
 
 def getAllBookingImages(url, name, destination):
     soup = connect(url)
@@ -16,6 +16,14 @@ def getAllBookingImages(url, name, destination):
                 except:
                     continue
 
+            if not len(img_paths) > 0:
+                return
+
+            dir_name = makeDirectory(name, destination)
+
+            if not dir_name:
+                return
+
             ctr = 0
             for i in img_paths:
                 try:
@@ -26,7 +34,7 @@ def getAllBookingImages(url, name, destination):
             filename = name + str(ctr) + '.' + i.split('.')[-1]
             ctr = ctr + 1
 
-            saveImage(filename, name, destination, re)
+            saveImage(filename, dir_name, re)
 
 
 

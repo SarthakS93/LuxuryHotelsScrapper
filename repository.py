@@ -315,5 +315,17 @@ def makeDirectory(name, destination):
         print('Exception inside makeDirectory')
         return None
 
-def saveImage(filename, name, destination, re):
-    file = open(filename, 'wb')
+def saveImage(filename, dir_name, re):
+    print('Inside saveImage')
+    try:
+        file = open(filename, 'wb')
+        file.write(re.content)
+        file.close()
+        print('saved - ' + filename)
+    except:
+        print('Exception in saveImage')
+
+
+
+
+
