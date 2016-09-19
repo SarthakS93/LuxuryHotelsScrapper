@@ -27,7 +27,7 @@ def getNewSoup(markup):
 def googleSearchConnect(query):
     print('Inside Google Search Connect')
     data = {'q' : query}
-    url = 'http://www.google.com/search'
+    url = 'https://www.google.com/search'
     time.sleep(1.5)
     try:
         r = requests.get(url, params = data, timeout = (15, 20))

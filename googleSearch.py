@@ -49,6 +49,7 @@ def bookingSearch(query):
                 href_text = tag.get('href')
                 if 'booking.com' in href_text and '/hotel/' in href_text:
                     link = getLinkFromText(href_text)
+                    print(link)
                     return link
 
         print('Nothing found in booking search')
