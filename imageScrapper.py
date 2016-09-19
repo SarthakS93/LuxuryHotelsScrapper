@@ -3,7 +3,7 @@ from getImages import getAllBookingImages
 from googleSearch import bookingSearch
 
 
-filename = 'africa.csv'
+filename = 'thailand.csv'
 
 def readFile():
     print('Inside readFile')
