@@ -17,7 +17,7 @@ def readFile():
             tuple = (i[0], i[1])
             newList.append(tuple)
 
-        newList.pop(0)
+        newList = newList[84 : ]
         return newList
     except:
         print('Exception in readFile')
@@ -36,13 +36,7 @@ def start():
             queryDictionary = {'search' : searchString}
 
             url = None
-            j = 0
-            while(j < 3):
-                if url == None:
-                    url = bookingSearch(queryDictionary)
-                    j = j + 1
-                else:
-                    break
+            url = bookingSearch(queryDictionary)
 
             if url:
                 getAllBookingImages(url, i[0], i[1])
