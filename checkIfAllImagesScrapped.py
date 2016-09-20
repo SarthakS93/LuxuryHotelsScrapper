@@ -9,7 +9,7 @@ def check(filename):
     reader = csv.reader(file)
 
     data_list = list(reader)
-
+    ctr = 1
     for i in data_list:
         name = i[0]
         location = i[1]
@@ -22,7 +22,9 @@ def check(filename):
                 break
 
         if temp == 0:
-            print('$$$$', name, location)
+            print('$$$$', ctr, name, location)
+
+        ctr += 1
 
 
 if __name__ == '__main__':
