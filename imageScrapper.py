@@ -3,7 +3,7 @@ from getImages import getAllBookingImages
 from googleSearch import bookingSearch
 
 
-filename = 'southAsia.csv'
+filename = 'middleEast.csv'
 
 def readFile():
     print('Inside readFile')
@@ -17,7 +17,7 @@ def readFile():
             tuple = (i[0], i[1])
             newList.append(tuple)
 
-        newList = newList[100 : ]
+        newList = newList[1 : 43]
         return newList
     except:
         print('Exception in readFile')
