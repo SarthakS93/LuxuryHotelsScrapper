@@ -29,7 +29,7 @@ def check(filename):
 
 if __name__ == '__main__':
     print('Starting')
-    check('thailand.csv')
+    check('southAsia.csv')
     print('End')
 
 
