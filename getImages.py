@@ -41,9 +41,9 @@ def getAllBookingImages(url, name, destination):
 
 
 if __name__ == '__main__':
-    url = 'http://www.booking.com/hotel/mv/kanuhura.en-gb.html'
-    name = 'Kanuhura'
-    destination = 'Neeloafaru Magu, Male, Maldives'
+    url = 'http://www.booking.com/hotel/ae/the-address-dubai-mall.en-gb.html'
+    name = 'The Address Downtown Dubai'
+    destination = 'Dubai, United Arab Emirates'
     print('Started getAllBookingImages')
     getAllBookingImages(url, name, destination)
     print('Done')

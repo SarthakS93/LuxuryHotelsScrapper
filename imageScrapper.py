@@ -17,7 +17,7 @@ def readFile():
             tuple = (i[0], i[1])
             newList.append(tuple)
 
-        newList = newList[1 : 43]
+        newList = newList[83 : ]
         return newList
     except:
         print('Exception in readFile')
