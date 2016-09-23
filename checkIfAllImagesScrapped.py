@@ -3,7 +3,7 @@ import os, csv
 def check(filename):
     print('Inside check')
 
-    folders_list = os.listdir('pics/')
+    folders_list = os.listdir('middleEast/')
 
     file = open(filename, 'r')
     reader = csv.reader(file)
@@ -29,7 +29,7 @@ def check(filename):
 
 if __name__ == '__main__':
     print('Starting')
-    check('temp.csv')
+    check('middleEast.csv')
     print('End')
 
 
